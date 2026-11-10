@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tambor da Marcha · Kit de Estudos · História 8º ano</title>
+<style>
+  :root{
+    --fundo:#15100c; --fundo2:#211912; --aco:#3a2e24; --aco2:#4d3e31;
+    --laranja:#e6b54a; --azul:#6c9be0; --verde:#7fd08a; --vermelho:#e8584a;
+    --amarelo:#f2cf72; --texto:#f2e8da; --cinza:#a89a8a;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Segoe UI',system-ui,Arial,sans-serif;
+    background:radial-gradient(1100px 520px at 50% -10%,#33241a,#15100c 62%),var(--fundo);
+    color:var(--texto);line-height:1.6;padding-bottom:60px}
+  header{background:linear-gradient(120deg,#2e1f15,#17110c 52%,#3d1913);padding:28px 18px;text-align:center;
+    box-shadow:0 4px 18px rgba(0,0,0,.55);border-bottom:4px solid var(--laranja);position:relative;overflow:hidden}
+  header:before{content:"";position:absolute;left:50%;top:50%;width:210px;height:210px;margin:-105px 0 0 -105px;border:4px solid rgba(230,181,74,.10);border-radius:50%}
+  header:after{content:"";position:absolute;left:50%;top:50%;width:150px;height:150px;margin:-75px 0 0 -75px;border:4px solid rgba(230,181,74,.08);border-radius:50%}
+  header .selo{font-size:.76rem;letter-spacing:2px;color:#e8cf9a;text-transform:uppercase;position:relative}
+  header h1{font-size:1.6rem;margin:7px 0 3px;position:relative}
+  header p{color:#e3d6c3;font-size:.93rem;position:relative}
+  .wrap{max-width:860px;margin:0 auto;padding:16px}
+  .barra-nav{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:16px 0}
+  .barra-nav a{background:var(--fundo2);color:var(--texto);text-decoration:none;padding:7px 12px;border-radius:20px;font-size:.85rem;border:1px solid var(--aco)}
+  .barra-nav a.on{background:var(--laranja);color:#2a1d00;font-weight:bold}
+  .barra-nav a.lock{opacity:.5}
+  .intro{background:var(--fundo2);border:1px solid var(--aco);border-radius:14px;padding:16px;margin-bottom:16px}
+  .intro h2{color:var(--laranja);font-size:1.1rem;margin-bottom:8px}
+  .intro ol{margin:8px 0 0 20px}
+  .ordem{text-align:center;font-weight:bold;margin:10px 0;font-size:.95rem;color:#fff}
+  .painel{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between;
+    background:var(--fundo2);border:1px solid var(--aco);border-radius:12px;padding:10px 14px;margin-bottom:16px;font-size:.85rem}
+  .painel .btns{display:flex;gap:6px;flex-wrap:wrap}
+  button{cursor:pointer;font-family:inherit}
+  .mini{background:var(--fundo);color:var(--texto);border:1px solid var(--aco2);border-radius:8px;padding:6px 10px;font-size:.8rem;cursor:pointer;font-family:inherit}
+  .mini:hover{background:#2e231a}
+  /* ---- placar / partitura de compassos ---- */
+  .placar{background:#0e0a07;border:2px solid #3a2e24;border-radius:16px;padding:14px;margin-bottom:18px;text-align:center}
+  .placar h3{color:var(--amarelo);font-size:.95rem;letter-spacing:2px;text-transform:uppercase;margin-bottom:4px}
+  .placar p.sub{color:var(--cinza);font-size:.8rem;margin-bottom:10px}
+  .placar .pts{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+  .placar .pt{width:58px;padding:6px 0;border-radius:14px;background:#1a130d;border:2px solid var(--aco2);cursor:pointer;font-family:'Courier New',monospace;font-weight:bold;color:#7d6c5a}
+  .placar .pt small{display:block;font-family:'Segoe UI',sans-serif;font-weight:normal;font-size:.62rem}
+  .placar .pt.aberto{color:var(--laranja);border-color:var(--laranja)}
+  .placar .pt.feito{color:#07241a;background:var(--verde);border-color:var(--verde);box-shadow:0 0 10px rgba(78,208,138,.45)}
+  .placar .total{font-family:'Courier New',monospace;font-size:1.6rem;color:var(--laranja);margin-top:8px}
+  /* ---- blocos ---- */
+  .bloco{background:var(--fundo2);border:1px solid var(--aco);border-radius:16px;margin-bottom:18px;overflow:hidden;box-shadow:0 3px 12px rgba(0,0,0,.4)}
+  .bloco.travado{opacity:.55}
+  .bloco-cab{display:flex;align-items:center;gap:12px;padding:14px 16px;background:linear-gradient(90deg,#2b2016,#1d1610);border-bottom:1px solid var(--aco)}
+  .bloco-cab .num{background:var(--laranja);color:#2a1d00;font-weight:bold;width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+  .bloco.gb .bloco-cab .num{background:var(--azul);color:#06203a}
+  .bloco-cab h3{font-size:1.06rem;color:#fff}
+  .bloco-cab .porto{font-size:.7rem;color:var(--cinza);letter-spacing:1px;text-transform:uppercase}
+  .bloco-corpo{padding:16px}
+  .texto p{margin-bottom:10px}
+  .texto ul{margin:0 0 10px 20px}
+  .texto li{margin-bottom:6px}
+  .texto .destaque{color:var(--laranja);font-weight:bold}
+  .bloco.gb .texto .destaque{color:var(--azul)}
+  .olhar{background:#2a2017;border-left:3px solid var(--amarelo);padding:8px 12px;margin:0 0 10px;border-radius:0 8px 8px 0;font-size:.92rem}
+  .olhar b{color:var(--amarelo)}
+  .cadeado{padding:22px 16px;text-align:center;color:var(--cinza);font-size:.9rem}
+  .perg{background:#1b140e;border:1px solid var(--aco);border-radius:12px;padding:12px;margin-top:14px}
+  .perg.red{border-color:var(--vermelho);box-shadow:0 0 0 1px var(--vermelho)}
+  .perg .tag{display:inline-block;font-size:.66rem;text-transform:uppercase;letter-spacing:1px;padding:2px 8px;border-radius:10px;margin-bottom:6px}
+  .tag.conc{background:#1d3550;color:#bcdcf7}
+  .tag.apl{background:#1f3f2d;color:#aee3c3}
+  .perg label{display:block;font-weight:600;margin-bottom:8px}
+  .perg textarea{width:100%;min-height:70px;background:#0f0b08;color:var(--texto);border:1px solid var(--aco2);border-radius:8px;padding:9px;font-family:inherit;font-size:.95rem;resize:vertical}
+  .aviso{margin-top:8px;padding:9px 11px;border-radius:8px;font-size:.85rem;display:none}
+  .aviso.amarelo{display:block;background:#4a3a12;border:1px solid var(--laranja);color:#ffeccb}
+  .aviso.vermelho{display:block;background:#471a1c;border:1px solid var(--vermelho);color:#ffd1cd}
+  .modelo{margin-top:10px;padding:10px 12px;background:#12301f;border:1px solid var(--verde);border-radius:8px;font-size:.9rem;display:none}
+  .modelo.show{display:block}
+  .modelo .lab{color:#8fe3b4;font-weight:bold;font-size:.78rem;text-transform:uppercase;letter-spacing:1px}
+  .chk{margin-top:10px;font-size:.88rem}
+  .chk .item{display:flex;align-items:center;gap:8px;margin:6px 0;flex-wrap:wrap}
+  .chk .item span{flex:1;min-width:180px}
+  .chk .simnao button{border:1px solid var(--aco2);background:#0f0b08;color:var(--texto);border-radius:6px;padding:4px 10px;margin-left:4px;font-size:.8rem}
+  .chk .simnao button.sim.ativo{background:var(--verde);border-color:var(--verde);color:#04231a}
+  .chk .simnao button.nao.ativo{background:var(--vermelho);border-color:var(--vermelho);color:#fff}
+  .conferir{margin-top:14px;background:var(--verde);color:#04231a;border:none;border-radius:10px;padding:11px 18px;font-size:1rem;font-weight:bold;width:100%}
+  .conferir:disabled{background:#3a2e24;color:#8f7f6c;cursor:not-allowed}
+  .status-bloco{margin-top:10px;text-align:center;font-weight:bold;font-size:.95rem}
+  .prox{margin-top:12px;text-align:center}
+  .prox a{color:var(--azul);text-decoration:none;font-weight:bold}
+  .peg{background:#3a1a20;border:2px solid var(--vermelho);border-radius:16px;padding:16px;margin-top:20px}
+  .peg h3{color:#ffb9b3;margin-bottom:10px}
+  .peg ol{margin-left:20px}
+  .peg li{margin-bottom:7px}
+  .cobertura{background:var(--fundo2);border:1px solid var(--aco);border-radius:16px;padding:16px;margin-top:18px}
+  .cobertura h3{color:var(--azul);margin-bottom:10px}
+  table{width:100%;border-collapse:collapse;font-size:.85rem}
+  th,td{border:1px solid var(--aco);padding:7px 9px;text-align:left;vertical-align:top}
+  th{background:#2c2219}
+  .revisar{background:#3a2d12;border:2px solid var(--laranja);border-radius:16px;padding:16px;margin-top:18px}
+  .revisar h3{color:var(--laranja);margin-bottom:8px}
+  .revisar ul{margin-left:18px}
+  .relatorio{background:var(--fundo2);border:1px dashed var(--azul);border-radius:14px;padding:16px;margin-top:18px;font-size:.9rem}
+  .relatorio h3{color:var(--azul);margin-bottom:8px}
+  .trilha-fim{background:linear-gradient(120deg,#1a2a20,#153328);border:2px solid var(--verde);border-radius:16px;padding:18px;margin-top:18px;text-align:center}
+  .trilha-fim h3{color:#8fe3b4;margin-bottom:8px}
+  .trilha-fim a.btn{display:inline-block;margin-top:8px;background:var(--verde);color:#04231a;text-decoration:none;font-weight:bold;padding:11px 20px;border-radius:10px}
+  .trilha-fim a.btn.off{background:#3a2e24;color:#8f7f6c;pointer-events:none}
+  /* ---- quiz / simulado ---- */
+  .codigo{background:linear-gradient(120deg,#153328,#1b4a35);border:2px solid var(--verde);border-radius:14px;padding:16px;text-align:center;margin-bottom:16px;display:none}
+  .codigo.show{display:block}
+  .codigo .cod{font-size:1.8rem;font-weight:bold;letter-spacing:3px;color:#8fe3b4;margin:6px 0}
+  .progresso{height:10px;background:var(--aco);border-radius:6px;overflow:hidden;margin-bottom:16px}
+  .progresso div{height:100%;background:linear-gradient(90deg,var(--azul),var(--laranja));width:0;transition:width .3s}
+  .q{background:var(--fundo2);border:1px solid var(--aco);border-radius:16px;padding:16px;margin-bottom:14px}
+  .q .num{color:var(--azul);font-weight:bold;font-size:.8rem;letter-spacing:1px;text-transform:uppercase}
+  .q .tema,.q .tipo{float:right;font-size:.7rem;color:var(--cinza);background:var(--fundo);border:1px solid var(--aco2);border-radius:10px;padding:2px 8px}
+  .q .tipo.rom{color:#f3d58a;border-color:var(--laranja)}
+  .q h3{font-size:1rem;margin:6px 0 10px;font-weight:600}
+  .afirm{background:#1b140e;border-left:3px solid var(--aco2);padding:8px 12px;margin:6px 0;border-radius:0 8px 8px 0;font-size:.93rem}
+  .afirm.ok{border-left-color:var(--verde)}
+  .afirm.no{border-left-color:#777;color:#aaa}
+  .alt{display:block;background:#1b140e;border:1px solid var(--aco2);border-radius:10px;padding:10px 12px;margin:6px 0;cursor:pointer}
+  .alt:hover{border-color:var(--laranja)}
+  .alt input{margin-right:8px}
+  .alt.sel{border-color:var(--laranja);background:#2a2314}
+  .alt.certa{border-color:var(--verde);background:#12301f}
+  .alt.errada{border-color:#4a4a55;background:#1f1813;color:#a7a7b2}
+  .alt.marcada-errada{border-color:var(--vermelho);background:#3a1a20}
+  .exp{margin-top:8px;font-size:.88rem;padding:8px 10px;border-radius:8px;background:#140f0a;border-left:3px solid var(--laranja);display:none}
+  .exp.show{display:block}
+  .enviar{width:100%;background:var(--laranja);color:#2a1d00;border:none;border-radius:12px;padding:14px;font-size:1.05rem;font-weight:bold;margin:10px 0}
+  .enviar:disabled{background:#3a2e24;color:#8f7f6c;cursor:not-allowed}
+  .gab{background:var(--fundo2);border:1px dashed var(--azul);border-radius:14px;padding:16px;margin:16px 0;display:none}
+  .gab.show{display:block}
+  .gab input{padding:9px;border-radius:8px;border:1px solid var(--aco2);background:#0f0b08;color:var(--texto);font-size:1rem;width:180px;text-transform:uppercase}
+  .gab button{background:var(--azul);color:#06203a;border:none;border-radius:8px;padding:9px 14px;font-weight:bold;margin-left:6px}
+  .gab .msg{margin-top:8px;font-size:.9rem}
+  /* ---- resumo ---- */
+  .sec{margin:26px 0 12px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+  .sec h2{font-size:1.25rem}
+  .sec .pill{font-size:.7rem;letter-spacing:1px;text-transform:uppercase;padding:3px 10px;border-radius:12px;background:var(--laranja);color:#2a1d00;font-weight:bold}
+  .sec .pill.gb{background:var(--azul);color:#06203a}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px}
+  .card{background:var(--fundo2);border:1px solid var(--aco);border-radius:14px;padding:14px;border-top:4px solid var(--laranja)}
+  .card.gb{border-top-color:var(--azul)}
+  .card h3{font-size:1rem;margin-bottom:8px}
+  .card ul{margin-left:18px}
+  .card li{margin-bottom:5px;font-size:.93rem}
+  .card b{color:var(--laranja)}
+  .card.gb b{color:var(--azul)}
+  .grande{background:linear-gradient(120deg,#2b2016,#1d1610);border:2px solid var(--laranja);border-radius:16px;padding:16px;font-size:1.02rem}
+  .grande b{color:var(--amarelo)}
+  .postit{background:#ffe88a;color:#3a2a00;border-radius:4px;padding:12px 14px;font-size:.92rem;box-shadow:3px 4px 10px rgba(0,0,0,.45);transform:rotate(-1deg);margin:12px 0}
+  .postit b{color:#7a4a00}
+  .pegbox{background:#3a1a20;border:2px solid var(--vermelho);border-radius:12px;padding:12px 14px;margin:12px 0;font-size:.92rem}
+  .pegbox b{color:#ffb9b3}
+  .flips{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+  .flip{perspective:900px;height:185px;cursor:pointer}
+  .flip .inner{position:relative;width:100%;height:100%;transition:transform .5s;transform-style:preserve-3d}
+  .flip.on .inner{transform:rotateY(180deg)}
+  .flip .face{position:absolute;inset:0;backface-visibility:hidden;border-radius:12px;padding:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;font-size:.88rem}
+  .flip .front{background:linear-gradient(135deg,#33241a,#1d1610);border:1px solid var(--aco2);font-weight:bold;font-size:1rem}
+  .flip .front small{display:block;color:var(--cinza);font-weight:normal;font-size:.72rem;margin-top:6px}
+  .flip .back{background:#12301f;border:1px solid var(--verde);transform:rotateY(180deg)}
+  .tabela{width:100%;border-collapse:collapse;font-size:.88rem;margin-top:8px}
+  .tabela th,.tabela td{border:1px solid var(--aco);padding:7px 9px;text-align:left;vertical-align:top}
+  .tabela th{background:#2c2219}
+  .duelo{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px}
+  .duelo .lado{background:#1b140e;border-radius:12px;padding:12px;border:2px solid var(--aco2);text-align:center}
+  .duelo .lado.l1{border-color:var(--azul)}
+  .duelo .lado.l2{border-color:var(--laranja)}
+  .duelo .lado .ic{font-size:2rem}
+  .duelo h4{margin:4px 0}
+  .duelo.tres{grid-template-columns:1fr 1fr 1fr}
+  @media(max-width:600px){.duelo,.duelo.tres{grid-template-columns:1fr}}
+  .numeros{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+  .numeros div{background:#0e0a07;border:1px solid #3a2e24;border-radius:12px;padding:10px;text-align:center;font-size:.82rem}
+  .numeros div span{display:block;font-family:'Courier New',monospace;font-size:1.35rem;font-weight:bold;color:var(--laranja)}
+  .linha{border-left:3px solid var(--laranja);margin:10px 0 10px 10px;padding-left:16px}
+  .linha .ev{position:relative;margin-bottom:12px}
+  .linha .ev:before{content:"";position:absolute;left:-23px;top:7px;width:11px;height:11px;border-radius:50%;background:var(--laranja);box-shadow:0 0 0 3px rgba(230,181,74,.2)}
+  .linha .ev b{color:var(--amarelo);display:block;font-family:'Courier New',monospace}
+  .gloss{columns:2;column-gap:18px}
+  .gloss div{break-inside:avoid;margin-bottom:8px;font-size:.9rem}
+  .gloss b{color:var(--laranja)}
+  @media(max-width:600px){.gloss{columns:1}}
+  .fim{background:linear-gradient(120deg,#1a2a20,#153328);border:2px solid var(--verde);border-radius:16px;padding:18px;margin-top:24px;text-align:center}
+  .fim h3{color:#8fe3b4;margin-bottom:8px}
+  .fim button{background:var(--verde);color:#04231a;border:none;border-radius:10px;padding:12px 20px;font-size:1rem;font-weight:bold;margin:6px;cursor:pointer;font-family:inherit}
+  .fim button:disabled{background:#3a2e24;color:#8f7f6c;cursor:not-allowed}
+  .fim a,.fim a.btn{display:inline-block;margin:6px;background:var(--azul);color:#06203a;text-decoration:none;font-weight:bold;padding:12px 20px;border-radius:10px}
+  .fim a.btn.off{background:#3a2e24;color:#8f7f6c;pointer-events:none}
+  /* ---- index ---- */
+  .selo-pais{display:none;background:#153328;border:1px solid var(--verde);color:#8fe3b4;border-radius:10px;padding:10px 14px;margin:12px 0;text-align:center;font-weight:bold}
+  .selo-pais.show{display:block}
+  .selo-pais button{margin-left:10px;background:transparent;border:1px solid var(--verde);color:#8fe3b4;border-radius:8px;padding:4px 10px;cursor:pointer;font-family:inherit}
+  .trilha{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;margin:16px 0}
+  .trilha .card{position:relative;background:var(--fundo2);border:1px solid var(--aco);border-top:1px solid var(--aco);border-radius:16px;padding:16px;text-decoration:none;color:var(--texto);display:block;transition:transform .15s,box-shadow .15s}
+  .trilha .card .passo{font-size:.7rem;letter-spacing:1px;text-transform:uppercase;color:var(--cinza)}
+  .trilha .card .emoji{font-size:2rem;margin:4px 0}
+  .trilha .card h3{font-size:1.05rem;margin-bottom:6px}
+  .trilha .card p{font-size:.85rem;color:#d8cbb8}
+  .trilha .card .estado{margin-top:10px;font-size:.8rem;font-weight:bold;padding:6px 8px;border-radius:8px}
+  .trilha .card.aberto{border-color:var(--laranja)}
+  .trilha .card.aberto:hover{transform:translateY(-3px);box-shadow:0 8px 22px rgba(230,181,74,.22)}
+  .trilha .card.aberto .estado{background:#2a2314;color:var(--laranja)}
+  .trilha .card.novo{animation:brilho 1.6s ease-in-out 3;border-color:var(--laranja)}
+  @keyframes brilho{0%,100%{box-shadow:0 0 0 rgba(230,181,74,0)}50%{box-shadow:0 0 22px rgba(230,181,74,.6)}}
+  .trilha .card.novo .estado{background:#3a2d12;color:var(--laranja)}
+  .trilha .card.feito{border-color:var(--verde)}
+  .trilha .card.feito .estado{background:#12301f;color:#8fe3b4}
+  .trilha .card.trancado{opacity:.55;filter:grayscale(.6);pointer-events:none;cursor:not-allowed}
+  .trilha .card.trancado .estado{background:#241b13;color:var(--cinza)}
+  .trilha .card .cadeado{position:absolute;top:10px;right:12px;font-size:1.3rem;padding:0}
+  .como{background:var(--fundo2);border:1px solid var(--aco);border-radius:14px;padding:16px;margin:16px 0}
+  .como h2{color:var(--azul);font-size:1.1rem;margin-bottom:8px}
+  .como ol{margin-left:20px}
+  .como li{margin-bottom:6px}
+  .cai{background:#2a2017;border-left:4px solid var(--amarelo);border-radius:0 12px 12px 0;padding:14px 16px;margin:16px 0;font-size:.93rem}
+  .cai h2{color:var(--amarelo);font-size:1.05rem;margin-bottom:6px}
+  .cai p{margin-bottom:6px}
+  .rel{background:var(--fundo2);border:1px dashed var(--azul);border-radius:14px;padding:16px;margin:16px 0}
+  .rel h2{color:var(--azul);font-size:1.1rem;margin-bottom:8px}
+  .rel input{padding:9px;border-radius:8px;border:1px solid var(--aco2);background:#0f0b08;color:var(--texto);font-size:1rem;width:170px;text-transform:uppercase}
+  .rel button{background:var(--azul);color:#06203a;border:none;border-radius:8px;padding:9px 14px;font-weight:bold;margin-left:6px;cursor:pointer;font-family:inherit}
+  .rel .out{margin-top:12px;font-size:.9rem}
+  .rel .bloco{background:#1b140e;border:1px solid var(--aco);border-radius:10px;padding:10px 12px;margin:8px 0}
+  .rel .bloco b{color:var(--laranja)}
+  .rel .liberar{margin-top:10px;background:var(--verde);color:#04231a}
+  .rel .perigo{background:#471a1c;color:#ffd1cd;border:1px solid var(--vermelho)}
+  .dica{background:#ffe88a;color:#3a2a00;border-radius:4px;padding:12px 14px;font-size:.9rem;box-shadow:3px 4px 10px rgba(0,0,0,.45);transform:rotate(-1deg);margin:16px 0}
+  .dica b{color:#7a4a00}
+  /* ---- modais ---- */
+  .modal-bg{display:none;position:fixed;inset:0;background:rgba(10,7,4,.93);z-index:50;align-items:center;justify-content:center;padding:16px}
+  .modal-bg.show{display:flex}
+  .modal{background:var(--fundo2);border:1px solid var(--laranja);border-radius:14px;padding:22px;max-width:440px;text-align:center}
+  .modal p{margin-bottom:14px}
+  .modal .big{font-size:2.2rem}
+  .modal a,.modal button{display:inline-block;background:var(--laranja);color:#2a1d00;border:none;border-radius:8px;padding:10px 18px;font-weight:bold;text-decoration:none;font-family:inherit;cursor:pointer}
+  .modal button.sec,.modal .mini{background:transparent;border:1px solid var(--aco2);color:var(--texto);margin-left:8px}
+  .rodape{text-align:center;color:var(--cinza);font-size:.8rem;margin-top:24px}
+
+  body.sim header{background:linear-gradient(120deg,#14264a,#0c1830 60%,#1d2f55);border-bottom-color:var(--vermelho)}
+  body.sim header:before,body.sim header:after{border-color:rgba(232,88,74,.14)}
+  body.sim .enviar{background:var(--vermelho);color:#fff}
+  body.sim .progresso div{background:linear-gradient(90deg,#b8372b,var(--vermelho))}
+  .q .tipo.som{color:#bcd3f7;border-color:var(--azul)}
+  .q .tipo.disc{color:#c9ecc0;border-color:var(--verde)}
+  .somin{margin-top:10px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-weight:600}
+  .somin input{width:120px;padding:9px;border-radius:8px;border:1px solid var(--aco2);background:#0f0b08;color:var(--texto);font-size:1.1rem;font-family:inherit}
+  .disc-ta{width:100%;min-height:130px;background:#0f0b08;color:var(--texto);border:1px solid var(--aco2);border-radius:8px;padding:10px;font-family:inherit;font-size:.95rem;resize:vertical;margin-top:6px}
+  .modelo-disc{margin-top:10px;padding:10px 12px;background:#12301f;border:1px solid var(--verde);border-radius:8px;font-size:.9rem}
+  .modelo-disc .lab{color:#9fe3a8;font-weight:bold;font-size:.78rem;text-transform:uppercase;letter-spacing:1px;display:block;margin-bottom:4px}
+  .compassos{display:flex;gap:4px;justify-content:center;margin:6px 0 2px;font-size:1.1rem;letter-spacing:2px}
+</style>
+</head>
+<body>
+<header>
+  <div class="selo">Kit de Estudos · Colégio São José</div>
+  <h1>🥁 Tambor da Marcha</h1>
+  <p>História · 8º ano · Marcha para o Oeste e Guerra de Secessão</p>
+</header>
+
+<div class="wrap">
+  <div class="intro">
+    <h2>👋 Bem-vindo(a) à marcha!</h2>
+    <p>Este conteúdo tem duas “marchas”: a <b>Marcha para o Oeste</b>, que fez os Estados Unidos crescerem no século XIX, e a <b>Marcha das Lágrimas</b>, que tirou os povos indígenas das suas terras — e termina na <b>Guerra de Secessão</b>. Aqui o estudo segue o ritmo de um <b>tambor de marcha</b>: na <b>Leitura Guiada</b>, cada parte do conteúdo é um <b>compasso</b> (são 10). Depois vêm o <b>Ensaio do Toque</b> (Quiz), a <b>Partitura da Marcha</b> (Resumo) e o <b>Toque Final</b> (Simulado).</p>
+    <div class="ordem">Trilha: 📖 Leitura Guiada → 🎯 Quiz → 🗺️ Resumo → 📝 Simulado</div>
+    <p style="text-align:center;font-size:.9rem;color:var(--cinza)">Os materiais abrem <b>um por vez, na ordem</b>. Conclua um para destravar o próximo.</p>
+  </div>
+
+  <div class="selo-pais" id="selo-pais">🔓 Trilha liberada pelos pais <button onclick="trancar()">Trancar de novo</button></div>
+
+  <div class="trilha" id="trilha"></div>
+
+  <div class="como">
+    <h2>📌 Como usar este material</h2>
+    <ol>
+      <li><b>Leitura Guiada</b> (10 compassos): leia e <b>escreva</b> as respostas com as suas palavras. Conferir todos os compassos e responder a autoavaliação destrava o Quiz.</li>
+      <li><b>Quiz</b> (15 questões): teste o que entendeu enquanto o assunto está fresco. Enviar o Quiz destrava o Resumo.</li>
+      <li><b>Resumo</b>: feche as dúvidas que o Quiz mostrou. Ler até o fim e clicar em “Li o resumo até o fim” destrava o Simulado.</li>
+      <li><b>Simulado</b> (30 questões no estilo da prova): valendo, como se fosse a prova de verdade.</li>
+      <li>Depois do Simulado, <b>tudo fica aberto</b> para revisar quantas vezes quiser até a prova.</li>
+    </ol>
+    <p style="margin-top:8px;font-size:.88rem;color:var(--cinza)">Os materiais abrem um por vez, na ordem. Conclua um para destravar o próximo. Seu progresso fica salvo automaticamente no navegador deste aparelho. Dá para exportar e importar em cada material.</p>
+  </div>
+
+  <div class="cai">
+    <h2>✨ O que cai na prova</h2>
+    <p>Conteúdo da <b>apresentação de slides</b> usada em aula para esta prova:</p>
+    <p><b>1. Marcha para o Oeste</b> (EUA, séc. XIX) — o que foi, principais motivos, como aconteceu e consequências.</p>
+    <p><b>2. Expansão territorial dos EUA</b> — Louisiana (1803), Texas (1845), Oregon (1846), território mexicano (1848, Tratado de Guadalupe Hidalgo) e Gadsden (1853).</p>
+    <p><b>3. Destino Manifesto</b> e <b>Doutrina Monroe</b> (1823).</p>
+    <p><b>4. Povos indígenas nos EUA</b> — Lei de Remoção Indígena (1830), Marcha das Lágrimas e extermínio dos búfalos.</p>
+    <p><b>5. Lei de Terras nos EUA</b> (Homestead Act, 1862).</p>
+    <p><b>6. Guerra de Secessão</b> — início (1861) e fim (1865), com as consequências.</p>
+    <p><b>7. Harriet Tubman</b> — coragem que libertou vidas.</p>
+  </div>
+
+  <div class="dica">📌 <b>Dica para os pais:</b> o progresso fica no navegador de cada aparelho. Se a Leitura foi feita no tablet e o Quiz vai ser no computador, use 📥 Exportar / 📤 Importar em cada material, ou libere a trilha com o código da família (abaixo). A discursiva do Simulado aparece no relatório para vocês corrigirem com a resposta-modelo.</div>
+
+  <div class="rel">
+    <h2>📊 Relatório para os pais</h2>
+    <p>Digite um dos códigos: <b>MED-…</b> (do Quiz), <b>SIM-…</b> (do Simulado) ou o código fixo da família <b>PAIS-77</b>, que mostra tudo e permite liberar a trilha.</p>
+    <div style="margin-top:8px"><input id="cod-in" placeholder="PAIS-77"><button onclick="verRelatorio()">🔓 Ver relatório</button></div>
+    <div class="out" id="rel-out"></div>
+  </div>
+
+  <div class="rodape">Feito com carinho para o jovem aprendiz. 🥁 Bom ritmo e boa prova!</div>
+</div>
+
+<div class="modal-bg" id="modal">
+  <div class="modal">
+    <p id="modal-txt"></p>
+    <button id="modal-ok">Ok</button><button class="sec" id="modal-cancel" onclick="fecharModal()" style="display:none">Cancelar</button>
+  </div>
+</div>
+<script>
+/* ====== TRILHA COM CADEADOS (módulo comum do kit) ====== */
+var KIT='tambor_da_marcha';
+var TRILHA=[
+ {id:'leitura', chave:KIT+'_leitura_v1', nome:'Leitura Guiada', arquivo:'leitura-guiada.html', emoji:'📖', desc:'10 compassos com o conteúdo dos slides explicado e 3 perguntas em cada, para escrever com as suas palavras. A marcha vai ganhando ritmo.'},
+ {id:'quiz', chave:KIT+'_quiz_v1', nome:'Quiz', arquivo:'quiz.html', emoji:'🎯', desc:'Ensaio do Toque: 15 questões objetivas para testar o que você entendeu. Código MED e gabarito comentado.'},
+ {id:'resumo', chave:KIT+'_resumo_v1', nome:'Resumo', arquivo:'resumo.html', emoji:'🗺️', desc:'Partitura da Marcha: linha do tempo, tabela do mapa, cartas para virar, post-its e glossário. Ótimo para a véspera.'},
+ {id:'simulado', chave:KIT+'_simulado_v1', nome:'Simulado', arquivo:'simulado.html', emoji:'📝', desc:'Toque Final: 30 questões no estilo da prova — 24 de múltipla escolha, 3 de números romanos, 2 de somatório e 1 discursiva.'}
+];
+var TOTAL_BLOCOS=10, TOTAL_QUIZ=15, TOTAL_SIM=29;
+function lerJSON(k){ try{ var s=localStorage.getItem(k); return s?JSON.parse(s):null; }catch(e){ return null; } }
+function gravarJSON(k,v){ try{ localStorage.setItem(k,JSON.stringify(v)); }catch(e){} }
+function trilhaLiberada(){ var t=lerJSON(KIT+'_trilha_v1'); return !!(t&&t.liberadoPelosPais); }
+function dados(id){ var e=TRILHA.filter(function(t){return t.id===id;})[0]; return lerJSON(e.chave); }
+function etapaConcluida(id){ var d=dados(id); return !!(d&&d.concluido); }
+function podeAbrir(idx){ if(idx<=0||trilhaLiberada()) return true; return etapaConcluida(TRILHA[idx-1].id); }
+function fmt(iso){ if(!iso) return ''; var d=new Date(iso); return d.toLocaleDateString('pt-BR')+' '+d.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'}); }
+
+function faltaTexto(idx){ /* o que falta no material ANTERIOR para destravar este */
+  var ant=TRILHA[idx-1]; var d=dados(ant.id)||{};
+  if(ant.id==='leitura'){ var p=d.progresso||{conferidos:0,total:TOTAL_BLOCOS,chkPendentes:0}; var f=p.total-p.conferidos; return f>0? 'Destrava quando você concluir os '+p.total+' compassos da Leitura Guiada (faltam '+f+').' : 'Destrava quando você responder a autoavaliação da Leitura Guiada ('+p.chkPendentes+' ponto(s)).'; }
+  if(ant.id==='quiz'){ var n=d.resp?Object.keys(d.resp).length:0; return 'Destrava quando você enviar o Quiz'+(n?' ('+n+' de '+TOTAL_QUIZ+' respondidas)':'')+'.'; }
+  if(ant.id==='resumo'){ var r=Math.round(d.rolagemMax||0); return 'Destrava quando você ler o Resumo até o fim e clicar em "Li o resumo até o fim"'+(r?' (rolagem: '+r+'%)':'')+'.'; }
+  return 'Destrava quando você concluir '+ant.nome+'.';
+}
+function renderTrilha(){
+  var c=document.getElementById('trilha'); var h='';
+  TRILHA.forEach(function(t,idx){
+    var feito=etapaConcluida(t.id), aberto=podeAbrir(idx);
+    var cls='card', estado='', cadeado='';
+    if(feito){ cls+=' feito'; estado='✅ Concluído'+(dados(t.id).concluidoEm?' · '+fmt(dados(t.id).concluidoEm):''); }
+    else if(aberto){ var novo=(idx>0 && etapaConcluida(TRILHA[idx-1].id) && !trilhaLiberada()); cls+=novo?' novo':' aberto'; estado=novo?'✨ Novo destravado — pode começar!':(idx===0?'▶️ Comece por aqui':'▶️ Aberto'); }
+    else { cls+=' trancado'; cadeado='<span class="cadeado">🔒</span>'; estado='🔒 '+faltaTexto(idx); }
+    h+='<a class="'+cls+'" href="'+(aberto?t.arquivo:'#')+'" '+(aberto?'':'tabindex="-1" aria-disabled="true"')+'>'+cadeado+'<div class="passo">Passo '+(idx+1)+'</div><div class="emoji">'+t.emoji+'</div><h3>'+t.nome+'</h3><p>'+t.desc+'</p><div class="estado">'+estado+'</div></a>';
+  });
+  c.innerHTML=h;
+  document.getElementById('selo-pais').classList.toggle('show', trilhaLiberada());
+}
+
+/* ====== RELATÓRIO PARA OS PAIS ====== */
+function relLeitura(){
+  var e=dados('leitura'); if(!e||!e.blocos) return '<p>Ainda não há registro da Leitura Guiada.</p>';
+  var conf=0,red=0,nao=0,lista=[];
+  Object.keys(e.blocos).forEach(function(i){ var b=e.blocos[i]; if(b.conferido)conf++; if(b.perguntas)Object.keys(b.perguntas).forEach(function(j){ var p=b.perguntas[j]; if(p.red){red++; lista.push('Compasso '+(+i+1)+', pergunta '+(+j+1)+': resposta muito parecida com o texto');} if(p.chk)Object.keys(p.chk).forEach(function(k){ if(p.chk[k]==='nao'){nao++; lista.push('Compasso '+(+i+1)+', pergunta '+(+j+1)+': marcou "Não" num ponto-chave');} }); }); });
+  return '<b>Compassos conferidos:</b> '+conf+' de '+TOTAL_BLOCOS+'.<br><b>Respostas muito parecidas com o texto (vermelhas):</b> '+red+'.<br><b>Pontos marcados como "Não" na autoavaliação:</b> '+nao+'.'+(lista.length?'<ul style="margin:6px 0 0 18px">'+lista.map(function(x){return '<li>'+x+'</li>';}).join('')+'</ul>':'');
+}
+function relQuiz(){ var e=dados('quiz'); if(!e) return '<p>Ainda não há registro do Quiz.</p>'; if(!e.enviado) return '<p>Quiz iniciado ('+Object.keys(e.resp||{}).length+' de '+TOTAL_QUIZ+' respondidas), ainda não enviado.</p>'; return '<b>Quiz enviado.</b> Acertos: '+e.acertos+' de '+TOTAL_QUIZ+'. Código: '+e.codigo+'.'; }
+function relResumo(){ var e=dados('resumo'); if(!e) return '<p>Ainda não há registro do Resumo.</p>'; return '<b>Rolagem máxima:</b> '+Math.round(e.rolagemMax||0)+'%. '+(e.concluido?'<b>Lido até o fim</b> em '+fmt(e.concluidoEm)+'.':'Ainda não confirmou a leitura até o fim.'); }
+function relSimulado(){ var e=dados('simulado'); if(!e) return '<p>Ainda não há registro do Simulado.</p>'; if(!e.enviado) return '<p>Simulado iniciado, ainda não enviado.</p>'; return '<b>Simulado enviado.</b> Acertos: '+e.acertos+' de '+(e.objetivas||TOTAL_SIM)+' questões objetivas. Código: '+e.codigo+'.'+(e.discursiva?'<br><b>Discursiva (corrigir com a resposta-modelo do gabarito):</b><br><i>'+String(e.discursiva).replace(/</g,'&lt;')+'</i>':''); }
+function relTrilha(){
+  var h='<ul style="margin-left:18px">';
+  TRILHA.forEach(function(t){ var d=dados(t.id); h+='<li>'+t.emoji+' '+t.nome+': '+((d&&d.concluido)?'<span style="color:#8fe0b4">concluído em '+fmt(d.concluidoEm)+'</span>':'<span style="color:#ffb3bc">não concluído</span>')+'</li>'; });
+  h+='</ul>'; var tr=lerJSON(KIT+'_trilha_v1'); if(tr&&tr.liberadoPelosPais) h+='<p>🔓 Trilha liberada pelos pais em '+fmt(tr.liberadoEm)+'.</p>'; else if(tr&&tr.liberadoEm) h+='<p>Trilha foi liberada pelos pais em '+fmt(tr.liberadoEm)+' e trancada de novo em '+fmt(tr.trancadoEm)+'.</p>';
+  return h;
+}
+function verRelatorio(){
+  var v=document.getElementById('cod-in').value.trim().toUpperCase(); var out=document.getElementById('rel-out');
+  var q=dados('quiz')||{}, s=dados('simulado')||{};
+  var tudo=(v==='PAIS-77'), okQ=(q.codigo&&v===q.codigo), okS=(s.codigo&&v===s.codigo);
+  if(!tudo&&!okQ&&!okS){ out.innerHTML='<span style="color:#ffb3bc">Código não reconhecido.</span>'; return; }
+  var h='';
+  if(tudo||okQ) h+='<div class="bloco"><b>📖 Leitura Guiada</b><br>'+relLeitura()+'</div><div class="bloco"><b>🎯 Quiz</b><br>'+relQuiz()+'</div>';
+  if(tudo) h+='<div class="bloco"><b>🗺️ Resumo</b><br>'+relResumo()+'</div>';
+  if(tudo||okS) h+='<div class="bloco"><b>📝 Simulado</b><br>'+relSimulado()+'</div>';
+  if(tudo){ h+='<div class="bloco"><b>🛤️ Trilha</b>'+relTrilha()+'</div>';
+    h+= trilhaLiberada() ? '<button class="liberar" onclick="trancar()">🔒 Trancar a trilha de novo</button>' : '<button class="liberar" onclick="liberar()">🔓 Liberar todos os materiais</button>';
+    h+=' <button class="perigo" onclick="pedirZerarKit()">🗑️ Zerar o kit inteiro</button>';
+  }
+  out.innerHTML=h;
+}
+function liberar(){ var t=lerJSON(KIT+'_trilha_v1')||{}; t.liberadoPelosPais=true; t.liberadoEm=new Date().toISOString(); gravarJSON(KIT+'_trilha_v1',t); renderTrilha(); verRelatorio(); }
+function trancar(){ var t=lerJSON(KIT+'_trilha_v1')||{}; t.liberadoPelosPais=false; t.trancadoEm=new Date().toISOString(); gravarJSON(KIT+'_trilha_v1',t); renderTrilha(); if(document.getElementById('rel-out').innerHTML) verRelatorio(); }
+function pedirZerarKit(){ mostrarModal('Apagar TODO o progresso do kit (leitura, quiz, resumo, simulado e trilha)? O jovem aprendiz volta ao começo, com só a Leitura Guiada aberta.',true,function(){ TRILHA.forEach(function(t){ try{localStorage.removeItem(t.chave);}catch(e){} }); try{localStorage.removeItem(KIT+'_trilha_v1');}catch(e){} renderTrilha(); document.getElementById('rel-out').innerHTML='<span style="color:#8fe0b4">Kit zerado.</span>'; }); }
+function mostrarModal(txt,confirmar,fn){ document.getElementById('modal-txt').innerHTML=txt; document.getElementById('modal').classList.add('show'); document.getElementById('modal-cancel').style.display=confirmar?'inline-block':'none'; var ok=document.getElementById('modal-ok'); ok.textContent=confirmar?'Sim, apagar':'Ok'; ok.onclick=function(){ if(fn) fn(); fecharModal(); }; }
+function fecharModal(){ document.getElementById('modal').classList.remove('show'); }
+
+renderTrilha();
+</script>
+</body>
+</html>

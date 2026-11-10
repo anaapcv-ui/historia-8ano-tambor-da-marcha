@@ -1,0 +1,1118 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Leitura Guiada · Tambor da Marcha · História 8º</title>
+<style>
+  :root{
+    --fundo:#15100c; --fundo2:#211912; --aco:#3a2e24; --aco2:#4d3e31;
+    --laranja:#e6b54a; --azul:#6c9be0; --verde:#7fd08a; --vermelho:#e8584a;
+    --amarelo:#f2cf72; --texto:#f2e8da; --cinza:#a89a8a;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Segoe UI',system-ui,Arial,sans-serif;
+    background:radial-gradient(1100px 520px at 50% -10%,#33241a,#15100c 62%),var(--fundo);
+    color:var(--texto);line-height:1.6;padding-bottom:60px}
+  header{background:linear-gradient(120deg,#2e1f15,#17110c 52%,#3d1913);padding:28px 18px;text-align:center;
+    box-shadow:0 4px 18px rgba(0,0,0,.55);border-bottom:4px solid var(--laranja);position:relative;overflow:hidden}
+  header:before{content:"";position:absolute;left:50%;top:50%;width:210px;height:210px;margin:-105px 0 0 -105px;border:4px solid rgba(230,181,74,.10);border-radius:50%}
+  header:after{content:"";position:absolute;left:50%;top:50%;width:150px;height:150px;margin:-75px 0 0 -75px;border:4px solid rgba(230,181,74,.08);border-radius:50%}
+  header .selo{font-size:.76rem;letter-spacing:2px;color:#e8cf9a;text-transform:uppercase;position:relative}
+  header h1{font-size:1.6rem;margin:7px 0 3px;position:relative}
+  header p{color:#e3d6c3;font-size:.93rem;position:relative}
+  .wrap{max-width:860px;margin:0 auto;padding:16px}
+  .barra-nav{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:16px 0}
+  .barra-nav a{background:var(--fundo2);color:var(--texto);text-decoration:none;padding:7px 12px;border-radius:20px;font-size:.85rem;border:1px solid var(--aco)}
+  .barra-nav a.on{background:var(--laranja);color:#2a1d00;font-weight:bold}
+  .barra-nav a.lock{opacity:.5}
+  .intro{background:var(--fundo2);border:1px solid var(--aco);border-radius:14px;padding:16px;margin-bottom:16px}
+  .intro h2{color:var(--laranja);font-size:1.1rem;margin-bottom:8px}
+  .intro ol{margin:8px 0 0 20px}
+  .ordem{text-align:center;font-weight:bold;margin:10px 0;font-size:.95rem;color:#fff}
+  .painel{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between;
+    background:var(--fundo2);border:1px solid var(--aco);border-radius:12px;padding:10px 14px;margin-bottom:16px;font-size:.85rem}
+  .painel .btns{display:flex;gap:6px;flex-wrap:wrap}
+  button{cursor:pointer;font-family:inherit}
+  .mini{background:var(--fundo);color:var(--texto);border:1px solid var(--aco2);border-radius:8px;padding:6px 10px;font-size:.8rem;cursor:pointer;font-family:inherit}
+  .mini:hover{background:#2e231a}
+  /* ---- placar / partitura de compassos ---- */
+  .placar{background:#0e0a07;border:2px solid #3a2e24;border-radius:16px;padding:14px;margin-bottom:18px;text-align:center}
+  .placar h3{color:var(--amarelo);font-size:.95rem;letter-spacing:2px;text-transform:uppercase;margin-bottom:4px}
+  .placar p.sub{color:var(--cinza);font-size:.8rem;margin-bottom:10px}
+  .placar .pts{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+  .placar .pt{width:58px;padding:6px 0;border-radius:14px;background:#1a130d;border:2px solid var(--aco2);cursor:pointer;font-family:'Courier New',monospace;font-weight:bold;color:#7d6c5a}
+  .placar .pt small{display:block;font-family:'Segoe UI',sans-serif;font-weight:normal;font-size:.62rem}
+  .placar .pt.aberto{color:var(--laranja);border-color:var(--laranja)}
+  .placar .pt.feito{color:#07241a;background:var(--verde);border-color:var(--verde);box-shadow:0 0 10px rgba(78,208,138,.45)}
+  .placar .total{font-family:'Courier New',monospace;font-size:1.6rem;color:var(--laranja);margin-top:8px}
+  /* ---- blocos ---- */
+  .bloco{background:var(--fundo2);border:1px solid var(--aco);border-radius:16px;margin-bottom:18px;overflow:hidden;box-shadow:0 3px 12px rgba(0,0,0,.4)}
+  .bloco.travado{opacity:.55}
+  .bloco-cab{display:flex;align-items:center;gap:12px;padding:14px 16px;background:linear-gradient(90deg,#2b2016,#1d1610);border-bottom:1px solid var(--aco)}
+  .bloco-cab .num{background:var(--laranja);color:#2a1d00;font-weight:bold;width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+  .bloco.gb .bloco-cab .num{background:var(--azul);color:#06203a}
+  .bloco-cab h3{font-size:1.06rem;color:#fff}
+  .bloco-cab .porto{font-size:.7rem;color:var(--cinza);letter-spacing:1px;text-transform:uppercase}
+  .bloco-corpo{padding:16px}
+  .texto p{margin-bottom:10px}
+  .texto ul{margin:0 0 10px 20px}
+  .texto li{margin-bottom:6px}
+  .texto .destaque{color:var(--laranja);font-weight:bold}
+  .bloco.gb .texto .destaque{color:var(--azul)}
+  .olhar{background:#2a2017;border-left:3px solid var(--amarelo);padding:8px 12px;margin:0 0 10px;border-radius:0 8px 8px 0;font-size:.92rem}
+  .olhar b{color:var(--amarelo)}
+  .cadeado{padding:22px 16px;text-align:center;color:var(--cinza);font-size:.9rem}
+  .perg{background:#1b140e;border:1px solid var(--aco);border-radius:12px;padding:12px;margin-top:14px}
+  .perg.red{border-color:var(--vermelho);box-shadow:0 0 0 1px var(--vermelho)}
+  .perg .tag{display:inline-block;font-size:.66rem;text-transform:uppercase;letter-spacing:1px;padding:2px 8px;border-radius:10px;margin-bottom:6px}
+  .tag.conc{background:#1d3550;color:#bcdcf7}
+  .tag.apl{background:#1f3f2d;color:#aee3c3}
+  .perg label{display:block;font-weight:600;margin-bottom:8px}
+  .perg textarea{width:100%;min-height:70px;background:#0f0b08;color:var(--texto);border:1px solid var(--aco2);border-radius:8px;padding:9px;font-family:inherit;font-size:.95rem;resize:vertical}
+  .aviso{margin-top:8px;padding:9px 11px;border-radius:8px;font-size:.85rem;display:none}
+  .aviso.amarelo{display:block;background:#4a3a12;border:1px solid var(--laranja);color:#ffeccb}
+  .aviso.vermelho{display:block;background:#471a1c;border:1px solid var(--vermelho);color:#ffd1cd}
+  .modelo{margin-top:10px;padding:10px 12px;background:#12301f;border:1px solid var(--verde);border-radius:8px;font-size:.9rem;display:none}
+  .modelo.show{display:block}
+  .modelo .lab{color:#8fe3b4;font-weight:bold;font-size:.78rem;text-transform:uppercase;letter-spacing:1px}
+  .chk{margin-top:10px;font-size:.88rem}
+  .chk .item{display:flex;align-items:center;gap:8px;margin:6px 0;flex-wrap:wrap}
+  .chk .item span{flex:1;min-width:180px}
+  .chk .simnao button{border:1px solid var(--aco2);background:#0f0b08;color:var(--texto);border-radius:6px;padding:4px 10px;margin-left:4px;font-size:.8rem}
+  .chk .simnao button.sim.ativo{background:var(--verde);border-color:var(--verde);color:#04231a}
+  .chk .simnao button.nao.ativo{background:var(--vermelho);border-color:var(--vermelho);color:#fff}
+  .conferir{margin-top:14px;background:var(--verde);color:#04231a;border:none;border-radius:10px;padding:11px 18px;font-size:1rem;font-weight:bold;width:100%}
+  .conferir:disabled{background:#3a2e24;color:#8f7f6c;cursor:not-allowed}
+  .status-bloco{margin-top:10px;text-align:center;font-weight:bold;font-size:.95rem}
+  .prox{margin-top:12px;text-align:center}
+  .prox a{color:var(--azul);text-decoration:none;font-weight:bold}
+  .peg{background:#3a1a20;border:2px solid var(--vermelho);border-radius:16px;padding:16px;margin-top:20px}
+  .peg h3{color:#ffb9b3;margin-bottom:10px}
+  .peg ol{margin-left:20px}
+  .peg li{margin-bottom:7px}
+  .cobertura{background:var(--fundo2);border:1px solid var(--aco);border-radius:16px;padding:16px;margin-top:18px}
+  .cobertura h3{color:var(--azul);margin-bottom:10px}
+  table{width:100%;border-collapse:collapse;font-size:.85rem}
+  th,td{border:1px solid var(--aco);padding:7px 9px;text-align:left;vertical-align:top}
+  th{background:#2c2219}
+  .revisar{background:#3a2d12;border:2px solid var(--laranja);border-radius:16px;padding:16px;margin-top:18px}
+  .revisar h3{color:var(--laranja);margin-bottom:8px}
+  .revisar ul{margin-left:18px}
+  .relatorio{background:var(--fundo2);border:1px dashed var(--azul);border-radius:14px;padding:16px;margin-top:18px;font-size:.9rem}
+  .relatorio h3{color:var(--azul);margin-bottom:8px}
+  .trilha-fim{background:linear-gradient(120deg,#1a2a20,#153328);border:2px solid var(--verde);border-radius:16px;padding:18px;margin-top:18px;text-align:center}
+  .trilha-fim h3{color:#8fe3b4;margin-bottom:8px}
+  .trilha-fim a.btn{display:inline-block;margin-top:8px;background:var(--verde);color:#04231a;text-decoration:none;font-weight:bold;padding:11px 20px;border-radius:10px}
+  .trilha-fim a.btn.off{background:#3a2e24;color:#8f7f6c;pointer-events:none}
+  /* ---- quiz / simulado ---- */
+  .codigo{background:linear-gradient(120deg,#153328,#1b4a35);border:2px solid var(--verde);border-radius:14px;padding:16px;text-align:center;margin-bottom:16px;display:none}
+  .codigo.show{display:block}
+  .codigo .cod{font-size:1.8rem;font-weight:bold;letter-spacing:3px;color:#8fe3b4;margin:6px 0}
+  .progresso{height:10px;background:var(--aco);border-radius:6px;overflow:hidden;margin-bottom:16px}
+  .progresso div{height:100%;background:linear-gradient(90deg,var(--azul),var(--laranja));width:0;transition:width .3s}
+  .q{background:var(--fundo2);border:1px solid var(--aco);border-radius:16px;padding:16px;margin-bottom:14px}
+  .q .num{color:var(--azul);font-weight:bold;font-size:.8rem;letter-spacing:1px;text-transform:uppercase}
+  .q .tema,.q .tipo{float:right;font-size:.7rem;color:var(--cinza);background:var(--fundo);border:1px solid var(--aco2);border-radius:10px;padding:2px 8px}
+  .q .tipo.rom{color:#f3d58a;border-color:var(--laranja)}
+  .q h3{font-size:1rem;margin:6px 0 10px;font-weight:600}
+  .afirm{background:#1b140e;border-left:3px solid var(--aco2);padding:8px 12px;margin:6px 0;border-radius:0 8px 8px 0;font-size:.93rem}
+  .afirm.ok{border-left-color:var(--verde)}
+  .afirm.no{border-left-color:#777;color:#aaa}
+  .alt{display:block;background:#1b140e;border:1px solid var(--aco2);border-radius:10px;padding:10px 12px;margin:6px 0;cursor:pointer}
+  .alt:hover{border-color:var(--laranja)}
+  .alt input{margin-right:8px}
+  .alt.sel{border-color:var(--laranja);background:#2a2314}
+  .alt.certa{border-color:var(--verde);background:#12301f}
+  .alt.errada{border-color:#4a4a55;background:#1f1813;color:#a7a7b2}
+  .alt.marcada-errada{border-color:var(--vermelho);background:#3a1a20}
+  .exp{margin-top:8px;font-size:.88rem;padding:8px 10px;border-radius:8px;background:#140f0a;border-left:3px solid var(--laranja);display:none}
+  .exp.show{display:block}
+  .enviar{width:100%;background:var(--laranja);color:#2a1d00;border:none;border-radius:12px;padding:14px;font-size:1.05rem;font-weight:bold;margin:10px 0}
+  .enviar:disabled{background:#3a2e24;color:#8f7f6c;cursor:not-allowed}
+  .gab{background:var(--fundo2);border:1px dashed var(--azul);border-radius:14px;padding:16px;margin:16px 0;display:none}
+  .gab.show{display:block}
+  .gab input{padding:9px;border-radius:8px;border:1px solid var(--aco2);background:#0f0b08;color:var(--texto);font-size:1rem;width:180px;text-transform:uppercase}
+  .gab button{background:var(--azul);color:#06203a;border:none;border-radius:8px;padding:9px 14px;font-weight:bold;margin-left:6px}
+  .gab .msg{margin-top:8px;font-size:.9rem}
+  /* ---- resumo ---- */
+  .sec{margin:26px 0 12px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+  .sec h2{font-size:1.25rem}
+  .sec .pill{font-size:.7rem;letter-spacing:1px;text-transform:uppercase;padding:3px 10px;border-radius:12px;background:var(--laranja);color:#2a1d00;font-weight:bold}
+  .sec .pill.gb{background:var(--azul);color:#06203a}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px}
+  .card{background:var(--fundo2);border:1px solid var(--aco);border-radius:14px;padding:14px;border-top:4px solid var(--laranja)}
+  .card.gb{border-top-color:var(--azul)}
+  .card h3{font-size:1rem;margin-bottom:8px}
+  .card ul{margin-left:18px}
+  .card li{margin-bottom:5px;font-size:.93rem}
+  .card b{color:var(--laranja)}
+  .card.gb b{color:var(--azul)}
+  .grande{background:linear-gradient(120deg,#2b2016,#1d1610);border:2px solid var(--laranja);border-radius:16px;padding:16px;font-size:1.02rem}
+  .grande b{color:var(--amarelo)}
+  .postit{background:#ffe88a;color:#3a2a00;border-radius:4px;padding:12px 14px;font-size:.92rem;box-shadow:3px 4px 10px rgba(0,0,0,.45);transform:rotate(-1deg);margin:12px 0}
+  .postit b{color:#7a4a00}
+  .pegbox{background:#3a1a20;border:2px solid var(--vermelho);border-radius:12px;padding:12px 14px;margin:12px 0;font-size:.92rem}
+  .pegbox b{color:#ffb9b3}
+  .flips{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+  .flip{perspective:900px;height:185px;cursor:pointer}
+  .flip .inner{position:relative;width:100%;height:100%;transition:transform .5s;transform-style:preserve-3d}
+  .flip.on .inner{transform:rotateY(180deg)}
+  .flip .face{position:absolute;inset:0;backface-visibility:hidden;border-radius:12px;padding:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;font-size:.88rem}
+  .flip .front{background:linear-gradient(135deg,#33241a,#1d1610);border:1px solid var(--aco2);font-weight:bold;font-size:1rem}
+  .flip .front small{display:block;color:var(--cinza);font-weight:normal;font-size:.72rem;margin-top:6px}
+  .flip .back{background:#12301f;border:1px solid var(--verde);transform:rotateY(180deg)}
+  .tabela{width:100%;border-collapse:collapse;font-size:.88rem;margin-top:8px}
+  .tabela th,.tabela td{border:1px solid var(--aco);padding:7px 9px;text-align:left;vertical-align:top}
+  .tabela th{background:#2c2219}
+  .duelo{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px}
+  .duelo .lado{background:#1b140e;border-radius:12px;padding:12px;border:2px solid var(--aco2);text-align:center}
+  .duelo .lado.l1{border-color:var(--azul)}
+  .duelo .lado.l2{border-color:var(--laranja)}
+  .duelo .lado .ic{font-size:2rem}
+  .duelo h4{margin:4px 0}
+  .duelo.tres{grid-template-columns:1fr 1fr 1fr}
+  @media(max-width:600px){.duelo,.duelo.tres{grid-template-columns:1fr}}
+  .numeros{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+  .numeros div{background:#0e0a07;border:1px solid #3a2e24;border-radius:12px;padding:10px;text-align:center;font-size:.82rem}
+  .numeros div span{display:block;font-family:'Courier New',monospace;font-size:1.35rem;font-weight:bold;color:var(--laranja)}
+  .linha{border-left:3px solid var(--laranja);margin:10px 0 10px 10px;padding-left:16px}
+  .linha .ev{position:relative;margin-bottom:12px}
+  .linha .ev:before{content:"";position:absolute;left:-23px;top:7px;width:11px;height:11px;border-radius:50%;background:var(--laranja);box-shadow:0 0 0 3px rgba(230,181,74,.2)}
+  .linha .ev b{color:var(--amarelo);display:block;font-family:'Courier New',monospace}
+  .gloss{columns:2;column-gap:18px}
+  .gloss div{break-inside:avoid;margin-bottom:8px;font-size:.9rem}
+  .gloss b{color:var(--laranja)}
+  @media(max-width:600px){.gloss{columns:1}}
+  .fim{background:linear-gradient(120deg,#1a2a20,#153328);border:2px solid var(--verde);border-radius:16px;padding:18px;margin-top:24px;text-align:center}
+  .fim h3{color:#8fe3b4;margin-bottom:8px}
+  .fim button{background:var(--verde);color:#04231a;border:none;border-radius:10px;padding:12px 20px;font-size:1rem;font-weight:bold;margin:6px;cursor:pointer;font-family:inherit}
+  .fim button:disabled{background:#3a2e24;color:#8f7f6c;cursor:not-allowed}
+  .fim a,.fim a.btn{display:inline-block;margin:6px;background:var(--azul);color:#06203a;text-decoration:none;font-weight:bold;padding:12px 20px;border-radius:10px}
+  .fim a.btn.off{background:#3a2e24;color:#8f7f6c;pointer-events:none}
+  /* ---- index ---- */
+  .selo-pais{display:none;background:#153328;border:1px solid var(--verde);color:#8fe3b4;border-radius:10px;padding:10px 14px;margin:12px 0;text-align:center;font-weight:bold}
+  .selo-pais.show{display:block}
+  .selo-pais button{margin-left:10px;background:transparent;border:1px solid var(--verde);color:#8fe3b4;border-radius:8px;padding:4px 10px;cursor:pointer;font-family:inherit}
+  .trilha{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;margin:16px 0}
+  .trilha .card{position:relative;background:var(--fundo2);border:1px solid var(--aco);border-top:1px solid var(--aco);border-radius:16px;padding:16px;text-decoration:none;color:var(--texto);display:block;transition:transform .15s,box-shadow .15s}
+  .trilha .card .passo{font-size:.7rem;letter-spacing:1px;text-transform:uppercase;color:var(--cinza)}
+  .trilha .card .emoji{font-size:2rem;margin:4px 0}
+  .trilha .card h3{font-size:1.05rem;margin-bottom:6px}
+  .trilha .card p{font-size:.85rem;color:#d8cbb8}
+  .trilha .card .estado{margin-top:10px;font-size:.8rem;font-weight:bold;padding:6px 8px;border-radius:8px}
+  .trilha .card.aberto{border-color:var(--laranja)}
+  .trilha .card.aberto:hover{transform:translateY(-3px);box-shadow:0 8px 22px rgba(230,181,74,.22)}
+  .trilha .card.aberto .estado{background:#2a2314;color:var(--laranja)}
+  .trilha .card.novo{animation:brilho 1.6s ease-in-out 3;border-color:var(--laranja)}
+  @keyframes brilho{0%,100%{box-shadow:0 0 0 rgba(230,181,74,0)}50%{box-shadow:0 0 22px rgba(230,181,74,.6)}}
+  .trilha .card.novo .estado{background:#3a2d12;color:var(--laranja)}
+  .trilha .card.feito{border-color:var(--verde)}
+  .trilha .card.feito .estado{background:#12301f;color:#8fe3b4}
+  .trilha .card.trancado{opacity:.55;filter:grayscale(.6);pointer-events:none;cursor:not-allowed}
+  .trilha .card.trancado .estado{background:#241b13;color:var(--cinza)}
+  .trilha .card .cadeado{position:absolute;top:10px;right:12px;font-size:1.3rem;padding:0}
+  .como{background:var(--fundo2);border:1px solid var(--aco);border-radius:14px;padding:16px;margin:16px 0}
+  .como h2{color:var(--azul);font-size:1.1rem;margin-bottom:8px}
+  .como ol{margin-left:20px}
+  .como li{margin-bottom:6px}
+  .cai{background:#2a2017;border-left:4px solid var(--amarelo);border-radius:0 12px 12px 0;padding:14px 16px;margin:16px 0;font-size:.93rem}
+  .cai h2{color:var(--amarelo);font-size:1.05rem;margin-bottom:6px}
+  .cai p{margin-bottom:6px}
+  .rel{background:var(--fundo2);border:1px dashed var(--azul);border-radius:14px;padding:16px;margin:16px 0}
+  .rel h2{color:var(--azul);font-size:1.1rem;margin-bottom:8px}
+  .rel input{padding:9px;border-radius:8px;border:1px solid var(--aco2);background:#0f0b08;color:var(--texto);font-size:1rem;width:170px;text-transform:uppercase}
+  .rel button{background:var(--azul);color:#06203a;border:none;border-radius:8px;padding:9px 14px;font-weight:bold;margin-left:6px;cursor:pointer;font-family:inherit}
+  .rel .out{margin-top:12px;font-size:.9rem}
+  .rel .bloco{background:#1b140e;border:1px solid var(--aco);border-radius:10px;padding:10px 12px;margin:8px 0}
+  .rel .bloco b{color:var(--laranja)}
+  .rel .liberar{margin-top:10px;background:var(--verde);color:#04231a}
+  .rel .perigo{background:#471a1c;color:#ffd1cd;border:1px solid var(--vermelho)}
+  .dica{background:#ffe88a;color:#3a2a00;border-radius:4px;padding:12px 14px;font-size:.9rem;box-shadow:3px 4px 10px rgba(0,0,0,.45);transform:rotate(-1deg);margin:16px 0}
+  .dica b{color:#7a4a00}
+  /* ---- modais ---- */
+  .modal-bg{display:none;position:fixed;inset:0;background:rgba(10,7,4,.93);z-index:50;align-items:center;justify-content:center;padding:16px}
+  .modal-bg.show{display:flex}
+  .modal{background:var(--fundo2);border:1px solid var(--laranja);border-radius:14px;padding:22px;max-width:440px;text-align:center}
+  .modal p{margin-bottom:14px}
+  .modal .big{font-size:2.2rem}
+  .modal a,.modal button{display:inline-block;background:var(--laranja);color:#2a1d00;border:none;border-radius:8px;padding:10px 18px;font-weight:bold;text-decoration:none;font-family:inherit;cursor:pointer}
+  .modal button.sec,.modal .mini{background:transparent;border:1px solid var(--aco2);color:var(--texto);margin-left:8px}
+  .rodape{text-align:center;color:var(--cinza);font-size:.8rem;margin-top:24px}
+
+  body.sim header{background:linear-gradient(120deg,#14264a,#0c1830 60%,#1d2f55);border-bottom-color:var(--vermelho)}
+  body.sim header:before,body.sim header:after{border-color:rgba(232,88,74,.14)}
+  body.sim .enviar{background:var(--vermelho);color:#fff}
+  body.sim .progresso div{background:linear-gradient(90deg,#b8372b,var(--vermelho))}
+  .q .tipo.som{color:#bcd3f7;border-color:var(--azul)}
+  .q .tipo.disc{color:#c9ecc0;border-color:var(--verde)}
+  .somin{margin-top:10px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-weight:600}
+  .somin input{width:120px;padding:9px;border-radius:8px;border:1px solid var(--aco2);background:#0f0b08;color:var(--texto);font-size:1.1rem;font-family:inherit}
+  .disc-ta{width:100%;min-height:130px;background:#0f0b08;color:var(--texto);border:1px solid var(--aco2);border-radius:8px;padding:10px;font-family:inherit;font-size:.95rem;resize:vertical;margin-top:6px}
+  .modelo-disc{margin-top:10px;padding:10px 12px;background:#12301f;border:1px solid var(--verde);border-radius:8px;font-size:.9rem}
+  .modelo-disc .lab{color:#9fe3a8;font-weight:bold;font-size:.78rem;text-transform:uppercase;letter-spacing:1px;display:block;margin-bottom:4px}
+  .compassos{display:flex;gap:4px;justify-content:center;margin:6px 0 2px;font-size:1.1rem;letter-spacing:2px}
+</style>
+</head>
+<body>
+<header>
+  <div class="selo">Tambor da Marcha · História 8º ano · Colégio São José</div>
+  <h1>📖 Leitura Guiada — Os 10 Compassos</h1>
+  <p>Marcha para o Oeste, Destino Manifesto, Doutrina Monroe, povos indígenas e Guerra de Secessão · Fonte: os 9 slides da aula</p>
+</header>
+
+<div class="wrap">
+  <nav class="barra-nav" id="nav">
+    <a class="on" href="leitura-guiada.html">📖 Leitura Guiada</a>
+    <a href="quiz.html" data-etapa="quiz">🎯 Quiz</a>
+    <a href="resumo.html" data-etapa="resumo">🗺️ Resumo</a>
+    <a href="simulado.html" data-etapa="simulado">📝 Simulado</a>
+    <a href="index.html">🏠 Início</a>
+  </nav>
+
+  <div class="intro">
+    <h2>🥁 Como funciona a marcha</h2>
+    <p>Este conteúdo tem duas “marchas”: a <b>Marcha para o Oeste</b>, que fez os Estados Unidos crescerem, e a <b>Marcha das Lágrimas</b>, que tirou os indígenas das suas terras. Aqui o estudo segue o ritmo de um <b>tambor de marcha</b>: cada parte do conteúdo é um <b>compasso</b>. São <b>10 compassos</b>, do rufar de abertura até Harriet Tubman. Em cada um, leia o texto e <b>escreva com as suas palavras</b> as respostas das 3 perguntas.</p>
+    <ol>
+      <li>Leia o compasso com calma. Tudo aqui vem dos slides que a escola usou na aula.</li>
+      <li>Responda as 3 perguntas <b>escrevendo</b>. Copiar o texto não vale.</li>
+      <li>Clique em <b>Conferir</b>: aparecem a resposta-modelo e uma autoavaliação Sim/Não.</li>
+      <li>Com os 10 compassos conferidos e a autoavaliação respondida, o <b>🎯 Ensaio do Toque (Quiz) destrava</b>.</li>
+    </ol>
+  </div>
+
+  <div class="painel">
+    <span id="salvo">💾 Progresso salvo automaticamente.</span>
+    <div class="btns">
+      <button class="mini" onclick="exportar()">📥 Exportar</button>
+      <button class="mini" onclick="document.getElementById('imp').click()">📤 Importar</button>
+      <input type="file" id="imp" accept="application/json" style="display:none" onchange="importar(event)">
+      <button class="mini" onclick="pedirZerar()">🗑️ Zerar tudo</button>
+    </div>
+  </div>
+
+  <div class="placar">
+    <h3>🥁 A partitura</h3>
+    <p class="sub">Clique num compasso para ir até ele. Verde = compasso tocado (conferido) · Dourado = aberto.</p>
+    <div class="pts" id="pts"></div>
+    <div class="total" id="placar-total">00 / 10</div>
+  </div>
+
+  <div id="blocos"></div>
+
+  <div class="peg">
+    <h3>⚠️ 10 Pegadinhas da Prova (não caia nelas!)</h3>
+    <ol>
+      <li><b>Duas marchas diferentes.</b> Marcha para o <b>Oeste</b> = expansão do território dos EUA. Marcha das <b>Lágrimas</b> = deslocamento forçado de milhares de indígenas, a pé, com mortes por fome, frio e doenças.</li>
+      <li><b>Duas leis diferentes.</b> Lei de <b>Remoção Indígena (1830)</b> = transferência forçada dos indígenas e criação de reservas. Lei de <b>Terras / Homestead Act (1862)</b> = quem podia migrar para o oeste.</li>
+      <li><b>Destino Manifesto × Doutrina Monroe.</b> Destino Manifesto = missão “divina e histórica” de expandir o território. Doutrina Monroe (1823) = “América para os americanos”, contra a intervenção europeia.</li>
+      <li><b>A Louisiana foi comprada da França (1803)</b> — não do México. Do México os EUA compraram a área de <b>Gadsden (1853)</b>.</li>
+      <li><b>O Oregon (1846) veio de um acordo com a Grã-Bretanha</b>, não de guerra. Quem veio de guerra/cessão foi o <b>território mexicano (1848)</b>, com o Tratado de Guadalupe Hidalgo.</li>
+      <li><b>O Texas (1845) foi anexado</b>, não comprado.</li>
+      <li><b>Ferrovias vieram mais tarde.</b> No começo, pioneiros e famílias iam em caravanas pelas trilhas.</li>
+      <li><b>Homestead Act:</b> só podiam migrar <b>chefes de família ou maiores de 21 anos</b>. A lei foi regulamentada por <b>Abraham Lincoln</b> (não por Monroe).</li>
+      <li><b>Quem atacou o Forte Sumter</b> (12/04/1861) foram as tropas <b>confederadas</b>. E no fim quem se rendeu foi <b>Lee (Sul) a Grant</b>, em Appomattox (09/04/1865) — não o contrário.</li>
+      <li><b>Liberdade não resolveu tudo:</b> a escravidão foi abolida de fato, mas milhões de ex-escravizados enfrentaram <b>discriminação, pobreza e falta de direitos</b>.</li>
+    </ol>
+  </div>
+
+  <div class="cobertura">
+    <h3>🧭 Cobertura: Tópico → Compasso</h3>
+    <table>
+      <thead><tr><th>Tópico da prova</th><th>Fonte</th><th>Compasso</th></tr></thead>
+      <tbody>
+        <tr><td>O que foi a Marcha para o Oeste; como aconteceu (caravanas, ferrovias, aquisição de terras, oeste como “fronteira”)</td><td>Slide 1</td><td>1</td></tr>
+        <tr><td>Principais motivos e consequências da Marcha para o Oeste</td><td>Slide 1</td><td>2</td></tr>
+        <tr><td>Expansão territorial: Louisiana (1803), Texas (1845), Oregon (1846), território mexicano (1848, Tratado de Guadalupe Hidalgo), Gadsden (1853)</td><td>Slide 2</td><td>3</td></tr>
+        <tr><td>Destino Manifesto: missão divina e histórica; “civilizar” os indígenas; tomada de terras</td><td>Slides 4, 1 e 2</td><td>4</td></tr>
+        <tr><td>Doutrina Monroe (1823): “América para os americanos”</td><td>Slide 6</td><td>5</td></tr>
+        <tr><td>Povos indígenas: Lei de Remoção Indígena (1830), Marcha das Lágrimas, extermínio dos búfalos</td><td>Slides 3 e 1</td><td>6</td></tr>
+        <tr><td>Lei de Terras nos EUA (Homestead Act, 1862)</td><td>Slide 5</td><td>7</td></tr>
+        <tr><td>Início da Guerra de Secessão (1860–1861): eleição de Lincoln, Estados Confederados, Forte Sumter</td><td>Slide 7</td><td>8</td></tr>
+        <tr><td>Fim da Guerra de Secessão (1865) e consequências</td><td>Slide 8</td><td>9</td></tr>
+        <tr><td>Harriet Tubman</td><td>Slide 9</td><td>10</td></tr>
+      </tbody>
+    </table>
+    <p style="margin-top:8px;font-size:.85rem;color:var(--cinza)">Todo o conteúdo saiu da <b>apresentação de slides da aula</b> enviada para esta prova (9 slides: Marcha para o Oeste, expansão territorial, povos indígenas, Destino Manifesto, Lei de Terras, Doutrina Monroe, início e fim da Guerra de Secessão e Harriet Tubman). O livro do 8º ano não foi consultado, por isso não há números de página.</p>
+  </div>
+
+  <div class="revisar" id="revisar" style="display:none">
+    <h3>🔁 Para revisar antes da prova</h3>
+    <ul id="revisar-lista"></ul>
+  </div>
+
+  <div class="relatorio">
+    <h3>📊 Para os pais (resumo desta leitura)</h3>
+    <div id="rel-conteudo">Assim que o jovem aprendiz for conferindo os compassos, o resumo aparece aqui.</div>
+  </div>
+
+  <div class="trilha-fim" id="trilha-fim">
+    <h3>🔒 Próxima etapa: Quiz</h3>
+    <p id="trilha-fim-txt">O Quiz destrava quando os 10 compassos estiverem conferidos e a autoavaliação respondida.</p>
+    <a class="btn off" id="btn-prox" href="quiz.html">🎯 Ir para o Quiz</a>
+  </div>
+
+  <div class="rodape">Feito com carinho para o jovem aprendiz. 🥁 Bom ritmo e boa prova!</div>
+</div>
+
+<div class="modal-bg" id="modal">
+  <div class="modal">
+    <p id="modal-txt"></p>
+    <button onclick="fecharModal()" id="modal-ok">Ok</button>
+    <button class="mini" onclick="fecharModal()" id="modal-cancel" style="display:none;margin-left:8px">Cancelar</button>
+  </div>
+</div>
+<script>
+/* ====== TRILHA COM CADEADOS (módulo comum do kit) ====== */
+var KIT='tambor_da_marcha';
+var TRILHA=[
+ {id:'leitura', chave:KIT+'_leitura_v1', nome:'Leitura Guiada', arquivo:'leitura-guiada.html', emoji:'📖'},
+ {id:'quiz', chave:KIT+'_quiz_v1', nome:'Quiz', arquivo:'quiz.html', emoji:'🎯'},
+ {id:'resumo', chave:KIT+'_resumo_v1', nome:'Resumo', arquivo:'resumo.html', emoji:'🗺️'},
+ {id:'simulado', chave:KIT+'_simulado_v1', nome:'Simulado', arquivo:'simulado.html', emoji:'📝'}
+];
+function lerJSON(k){ try{ var s=localStorage.getItem(k); return s?JSON.parse(s):null; }catch(e){ return null; } }
+function trilhaLiberada(){ var t=lerJSON(KIT+'_trilha_v1'); return !!(t&&t.liberadoPelosPais); }
+function etapaConcluida(id){ var e=TRILHA.filter(function(t){return t.id===id;})[0]; var d=lerJSON(e.chave); return !!(d&&d.concluido); }
+function podeAbrir(id){ var idx=TRILHA.map(function(t){return t.id;}).indexOf(id); if(idx<=0||trilhaLiberada()) return true; return etapaConcluida(TRILHA[idx-1].id); }
+function marcarNav(){
+  var links=document.querySelectorAll('#nav a[data-etapa]');
+  for(var i=0;i<links.length;i++){ var id=links[i].getAttribute('data-etapa'); if(!podeAbrir(id)){ links[i].classList.add('lock'); links[i].textContent='🔒 '+links[i].textContent.replace('🔒 ',''); links[i].setAttribute('title','Ainda trancado'); } else { links[i].classList.remove('lock'); links[i].textContent=links[i].textContent.replace('🔒 ',''); } }
+}
+
+/* ====== DADOS DOS COMPASSOS (conteúdo dos 9 slides da apresentação enviada pela Ana) ====== */
+var BLOCOS = [
+ {
+  "porto": "Compasso 1 · Rufar de abertura · Slide 1",
+  "emoji": "🧭",
+  "u": "",
+  "titulo": "O que foi a Marcha para o Oeste",
+  "texto": [
+   "Toda marcha começa com um rufar. A nossa começa nos <b>Estados Unidos do século XIX</b>. A <span class='destaque'>Marcha para o Oeste</span> foi a <b>expansão do território dos Estados Unidos em direção ao oeste</b>. No mapa do primeiro slide, uma seta sai do leste do país e avança sobre as terras do oeste.",
+   "Como isso aconteceu? O slide mostra três caminhos:",
+   "<ul><li><b>Pioneiros e famílias em <span class='destaque'>caravanas</span></b>, seguindo trilhas;</li><li><b>construção de ferrovias</b> — mas isso veio <b>mais tarde</b>;</li><li><b>aquisição de terras</b>, com o oeste visto como a <span class='destaque'>“fronteira”</span> do país.</li></ul>",
+   "Então, guarde a ordem: primeiro as famílias foram em caravanas pelas trilhas; as ferrovias chegaram depois. E o oeste era tratado como a “fronteira”: as terras que os Estados Unidos queriam adquirir e ocupar.",
+   "<div class='olhar'><b>Ouça o tambor:</b> nos próximos compassos você vai ver <b>por que</b> as pessoas foram (compasso 2), <b>como o mapa cresceu</b> (compasso 3) e <b>quem pagou o preço</b> dessa expansão (compasso 6).</div>"
+  ],
+  "perguntas": [
+   {
+    "tag": "conc",
+    "q": "Com as suas palavras: o que foi a Marcha para o Oeste?",
+    "modelo": "Foi a expansão do território dos Estados Unidos em direção ao oeste, no século XIX.",
+    "chk": [
+     "Disse que foi uma expansão do território dos Estados Unidos?",
+     "Disse que a direção foi o oeste (no século XIX)?"
+    ]
+   },
+   {
+    "tag": "apl",
+    "q": "Imagine o diário de uma família de pioneiros do século XIX. Escreva duas frases contando como ela foi para o oeste, usando o que o slide mostra.",
+    "modelo": "Saímos com outras famílias numa caravana, seguindo as trilhas rumo ao oeste. Queremos conseguir terras lá, porque o oeste é a nova “fronteira” do país.",
+    "chk": [
+     "Falei da caravana ou das trilhas?",
+     "Falei da busca ou aquisição de terras no oeste?"
+    ]
+   },
+   {
+    "tag": "apl",
+    "q": "Um colega afirmou: “A Marcha para o Oeste foi feita de trem desde o começo”. Corrija o colega com as suas palavras.",
+    "modelo": "Não foi assim. No começo, os pioneiros e as famílias iam em caravanas pelas trilhas. As ferrovias só foram construídas mais tarde.",
+    "chk": [
+     "Disse que no início eram caravanas pelas trilhas?",
+     "Disse que as ferrovias vieram depois (mais tarde)?"
+    ]
+   }
+  ]
+ },
+ {
+  "porto": "Compasso 2 · Por que marchar? · Slide 1",
+  "emoji": "🌾",
+  "u": "gb",
+  "titulo": "Motivos e consequências da Marcha",
+  "texto": [
+   "Por que tanta gente encarava uma viagem tão longa? O slide aponta <b>quatro motivos</b>:",
+   "<ul><li>a <span class='destaque'>busca por novas terras</span> para <b>agricultura e pecuária</b>;</li><li><b>oportunidades econômicas</b>;</li><li>a <b>oportunidade de uma vida melhor</b>;</li><li>a expansão do <span class='destaque'>“destino manifesto”</span> — a <b>ideia de que os EUA deveriam crescer</b> (você vai estudá-la no compasso 4).</li></ul>",
+   "Repare: três motivos são de pessoas comuns (terra, dinheiro, vida melhor) e um é uma <b>ideia</b> sobre o próprio país (o destino manifesto).",
+   "E o que a Marcha provocou? O slide mostra <b>três consequências</b>:",
+   "<ul><li><b>conflitos e deslocamento dos povos indígenas</b>;</li><li><b>destruição de ecossistemas naturais</b>;</li><li><b>crescimento econômico e industrial</b>.</li></ul>",
+   "<div class='olhar'><b>Pense numa balança:</b> de um lado, o crescimento econômico e industrial do país; do outro, os povos indígenas deslocados e a natureza destruída. A prova pode pedir os dois lados.</div>"
+  ],
+  "perguntas": [
+   {
+    "tag": "apl",
+    "q": "Um agricultor do leste diz: “Vou para o oeste para plantar, criar gado e ter uma vida melhor”. Quais motivos da Marcha para o Oeste aparecem na fala dele?",
+    "modelo": "Aparecem a busca por novas terras para agricultura e pecuária (plantar e criar gado) e a oportunidade de uma vida melhor.",
+    "chk": [
+     "Identifiquei a busca por terras para agricultura e pecuária?",
+     "Identifiquei a oportunidade de uma vida melhor?"
+    ]
+   },
+   {
+    "tag": "conc",
+    "q": "Quais foram as três consequências da Marcha para o Oeste mostradas no slide?",
+    "modelo": "Conflitos e deslocamento dos povos indígenas, destruição de ecossistemas naturais e crescimento econômico e industrial.",
+    "chk": [
+     "Citei os conflitos e o deslocamento dos povos indígenas?",
+     "Citei a destruição de ecossistemas naturais?",
+     "Citei o crescimento econômico e industrial?"
+    ]
+   },
+   {
+    "tag": "apl",
+    "q": "Explique para um aluno mais novo por que a Marcha para o Oeste foi boa para uns e ruim para outros.",
+    "modelo": "Para o país e para os colonos, ela trouxe terras e crescimento econômico e industrial. Mas os povos indígenas entraram em conflito e foram tirados das suas terras, e a natureza (os ecossistemas) foi destruída.",
+    "chk": [
+     "Citei um lado positivo (terras ou crescimento econômico/industrial)?",
+     "Citei um lado negativo (indígenas deslocados ou ecossistemas destruídos)?"
+    ]
+   }
+  ]
+ },
+ {
+  "porto": "Compasso 3 · O mapa cresce · Slide 2",
+  "emoji": "🗺️",
+  "u": "",
+  "titulo": "Expansão territorial dos EUA: 1803 a 1853",
+  "texto": [
+   "O slide do mapa mostra o território sendo somado, peça por peça. O ponto de partida é o <span class='destaque'>território original</span> dos Estados Unidos, no leste. Depois vieram <b>cinco aquisições</b>, cada uma de um jeito diferente:",
+   "<ul><li><b>1803 — Louisiana:</b> <span class='destaque'>compra</span>, da <b>França</b>;</li><li><b>1845 — Texas:</b> <span class='destaque'>anexação</span> pelos EUA;</li><li><b>1846 — Território de Oregon:</b> <span class='destaque'>acordo</span> com a <b>Grã-Bretanha</b>;</li><li><b>1848 — Território mexicano:</b> <span class='destaque'>guerra / cessão</span>, com o <b>Tratado de Guadalupe Hidalgo</b>;</li><li><b>1853 — Gadsden:</b> <span class='destaque'>compra</span>, do <b>México</b>.</li></ul>",
+   "Repare nos <b>jeitos</b>: os EUA <b>compraram</b> (Louisiana e Gadsden), <b>anexaram</b> (Texas), fizeram <b>acordo</b> (Oregon) e obtiveram por <b>guerra</b> (território mexicano). A prova adora trocar o jeito de cada aquisição.",
+   "No canto do mesmo slide aparece escrito <b>Destino Manifesto</b>: é a ideia que estava por trás dessa expansão (compasso 4).",
+   "<div class='olhar'><b>Truque da ordem:</b> 1803 → 1845 → 1846 → 1848 → 1853 = <b>Louisiana → Texas → Oregon → México → Gadsden</b>. Duas peças envolvem o México: a guerra de 1848 e a compra de 1853.</div>"
+  ],
+  "perguntas": [
+   {
+    "tag": "apl",
+    "q": "Organize em ordem cronológica, com o ano ao lado: Oregon, Gadsden, Louisiana, território mexicano, Texas.",
+    "modelo": "Louisiana (1803), Texas (1845), Oregon (1846), território mexicano (1848) e Gadsden (1853).",
+    "chk": [
+     "A ordem ficou Louisiana, Texas, Oregon, território mexicano, Gadsden?",
+     "Coloquei os anos certos (1803, 1845, 1846, 1848, 1853)?"
+    ]
+   },
+   {
+    "tag": "apl",
+    "q": "Um colega disse que “todo o território do oeste foi comprado”. Mostre, com dois exemplos do mapa, que isso não é verdade.",
+    "modelo": "Nem tudo foi compra: o Texas foi anexado em 1845, o Oregon veio de um acordo com a Grã-Bretanha em 1846 e o território mexicano veio de uma guerra, com o Tratado de Guadalupe Hidalgo, em 1848.",
+    "chk": [
+     "Dei pelo menos dois exemplos que não foram compra?",
+     "Disse qual foi o jeito de cada um (anexação, acordo ou guerra)?"
+    ]
+   },
+   {
+    "tag": "conc",
+    "q": "De quem os Estados Unidos compraram a Louisiana? E de quem compraram a área de Gadsden?",
+    "modelo": "A Louisiana foi comprada da França, em 1803. A área de Gadsden foi comprada do México, em 1853.",
+    "chk": [
+     "Louisiana = França (1803)?",
+     "Gadsden = México (1853)?"
+    ]
+   }
+  ]
+ },
+ {
+  "porto": "Compasso 4 · A ideia que empurra · Slides 4 e 1",
+  "emoji": "📜",
+  "u": "gb",
+  "titulo": "O Destino Manifesto",
+  "texto": [
+   "O <span class='destaque'>Destino Manifesto</span> foi a <b>ideia de que os Estados Unidos tinham uma missão divina e histórica de expandir seu território</b>. “Divina” quer dizer que se acreditava ser uma vontade de Deus. No primeiro slide, ele aparece de forma simples: a ideia de que os EUA <b>deveriam crescer</b>.",
+   "O slide também chama o Destino Manifesto de <b>missão dos Estados Unidos de “civilizar” os povos indígenas</b>. Os indígenas eram vistos como <span class='destaque'>“selvagens”</span> e, para os americanos da época, precisavam ser <b>educados e cristianizados</b>. Uma placa no slide resume essa forma de pensar: <b>Educação + Cristianismo = Civilização</b>.",
+   "Na prática, o Destino Manifesto <b>justificava a tomada de terras indígenas e a imposição da cultura americana</b>. Por isso ele aparece também como um dos <b>motivos</b> da Marcha para o Oeste (compasso 2).",
+   "<div class='olhar'><b>Atenção às aspas:</b> as palavras “civilizar” e “selvagens” aparecem entre aspas no slide. Elas mostram como os americanos da época enxergavam os indígenas — esse era o olhar deles, usado para justificar a tomada das terras.</div>"
+  ],
+  "perguntas": [
+   {
+    "tag": "conc",
+    "q": "Com as suas palavras: o que foi o Destino Manifesto?",
+    "modelo": "Foi a ideia de que os Estados Unidos tinham uma missão divina e histórica de expandir seu território (e de “civilizar” os povos indígenas).",
+    "chk": [
+     "Falei em missão divina e/ou histórica?",
+     "Falei em expandir o território?"
+    ]
+   },
+   {
+    "tag": "apl",
+    "q": "Imagine um cartaz de um colono do século XIX com a frase: “É vontade de Deus que nossa nação cresça e leve a civilização aos povos selvagens”. Que ideia é essa e o que ela justificava?",
+    "modelo": "É o Destino Manifesto. Ele justificava a tomada das terras indígenas e a imposição da cultura americana.",
+    "chk": [
+     "Reconheci o Destino Manifesto?",
+     "Disse que ele justificava a tomada de terras indígenas e/ou a imposição da cultura americana?"
+    ]
+   },
+   {
+    "tag": "apl",
+    "q": "Explique para um colega a “conta” da placa do slide (Educação + Cristianismo = Civilização): o que ela dizia sobre os povos indígenas?",
+    "modelo": "Ela dizia que, para os americanos da época, os indígenas só seriam “civilizados” se fossem educados do jeito deles e virassem cristãos. Ou seja, os indígenas eram vistos como “selvagens” e a cultura deles não era respeitada.",
+    "chk": [
+     "Disse que os indígenas eram vistos como “selvagens”?",
+     "Disse que queriam educá-los e cristianizá-los?"
+    ]
+   }
+  ]
+ },
+ {
+  "porto": "Compasso 5 · O toque para fora · Slide 6",
+  "emoji": "🌎",
+  "u": "",
+  "titulo": "A Doutrina Monroe (1823)",
+  "texto": [
+   "Enquanto o país crescia para dentro, também olhava para fora. Em <span class='destaque'>1823</span>, o presidente dos EUA <b>James Monroe</b> lançou a <span class='destaque'>Doutrina Monroe</span>, resumida no lema <b>“América para os americanos!”</b>. Segundo o slide, ela:",
+   "<ul><li><b>rejeitava a intervenção</b> de potências europeias nos assuntos das Américas;</li><li><b>defendia a independência</b> dos países latino-americanos;</li><li><b>estabelecia os EUA como protetor</b> da América Latina;</li><li><b>buscava evitar o retorno do colonialismo europeu</b> no continente.</li></ul>",
+   "Por isso, o slide conclui que a Doutrina Monroe <b>marcou o início da <span class='destaque'>política externa</span> dos EUA na América Latina</b>. Política externa é o jeito de um país se relacionar com os outros países.",
+   "<div class='olhar'><b>Não misture:</b> o <b>Destino Manifesto</b> é a ideia de expandir o território (para dentro do continente, sobre o oeste); a <b>Doutrina Monroe</b> é sobre a relação com a Europa e a América Latina (“América para os americanos”). E repare na data: 1823 vem antes da Lei de Remoção Indígena (1830).</div>"
+  ],
+  "perguntas": [
+   {
+    "tag": "apl",
+    "q": "Imagine que, em 1824, um rei europeu quisesse retomar uma antiga colônia na América do Sul. Pela Doutrina Monroe, como os EUA reagiriam? Explique.",
+    "modelo": "Os EUA seriam contra, porque a Doutrina Monroe rejeitava a intervenção europeia nas Américas, defendia a independência dos países latino-americanos e queria evitar a volta do colonialismo europeu. Os EUA se colocavam como protetores da América Latina.",
+    "chk": [
+     "Disse que os EUA seriam contra a intervenção europeia?",
+     "Usei pelo menos uma ideia da doutrina (independência, evitar o colonialismo, EUA como protetor)?"
+    ]
+   },
+   {
+    "tag": "conc",
+    "q": "O que queria dizer o lema “América para os americanos”?",
+    "modelo": "Que os assuntos das Américas não deviam ter a interferência das potências europeias, e que a Europa não devia voltar a colonizar o continente.",
+    "chk": [
+     "Disse que as potências europeias não deveriam intervir nas Américas?",
+     "Liguei o lema à ideia de evitar a volta do colonialismo europeu?"
+    ]
+   },
+   {
+    "tag": "apl",
+    "q": "Um colega afirmou: “A Doutrina Monroe era sobre como ocupar o oeste dos EUA”. Corrija o colega, dizendo do que ela tratava de verdade.",
+    "modelo": "Não. A Doutrina Monroe, de 1823, tratava da relação dos EUA com a Europa e a América Latina: era contra a intervenção europeia nas Américas e marcou o início da política externa dos EUA na América Latina.",
+    "chk": [
+     "Disse que ela tratava da relação com a Europa e a América Latina (política externa)?",
+     "Expliquei que ela era contra a intervenção europeia nas Américas?"
+    ]
+   }
+  ]
+ },
+ {
+  "porto": "Compasso 6 · O ritmo da perda · Slides 3 e 1",
+  "emoji": "🪶",
+  "u": "gb",
+  "titulo": "Os povos indígenas nos EUA",
+  "texto": [
+   "Agora o tambor muda de ritmo. Para os povos indígenas, a Marcha para o Oeste trouxe <b>conflitos e deslocamento</b>. O slide mostra três golpes:",
+   "<b>1. A Lei de Remoção Indígena (1830)</b> — fez a <b>transferência forçada de comunidades indígenas</b> e criou as <span class='destaque'>reservas indígenas</span>. O objetivo era <b>abrir espaço para os colonos</b>.",
+   "<b>2. A Marcha das Lágrimas</b> — foi o <b>deslocamento forçado de milhares de indígenas</b>, numa <b>longa e difícil jornada a pé</b>. Houve <b>muitas mortes por fome, frio e doenças</b>.",
+   "<b>3. O extermínio dos búfalos</b> — os colonos fizeram uma <span class='destaque'>caça em massa</span> aos búfalos. Isso destruiu a <b>principal fonte de alimento e sustento</b> dos indígenas e <b>enfraqueceu as comunidades indígenas</b>.",
+   "<div class='olhar'><b>Duas marchas diferentes:</b> a <b>Marcha para o Oeste</b> é a expansão do território dos EUA; a <b>Marcha das Lágrimas</b> é o deslocamento forçado dos indígenas — uma das consequências da primeira.</div>"
+  ],
+  "perguntas": [
+   {
+    "tag": "apl",
+    "q": "Ligue causa e consequência: por que a matança dos búfalos enfraquecia os povos indígenas?",
+    "modelo": "Porque o búfalo era a principal fonte de alimento e sustento deles. Sem os búfalos, as comunidades ficavam sem comida e sem sustento, e se enfraqueciam.",
+    "chk": [
+     "Disse que o búfalo era a principal fonte de alimento/sustento?",
+     "Liguei isso ao enfraquecimento das comunidades indígenas?"
+    ]
+   },
+   {
+    "tag": "conc",
+    "q": "Qual era o objetivo da Lei de Remoção Indígena de 1830 e o que ela criou?",
+    "modelo": "O objetivo era abrir espaço para os colonos. Ela fez a transferência forçada das comunidades indígenas e criou as reservas indígenas.",
+    "chk": [
+     "Disse que o objetivo era abrir espaço para os colonos?",
+     "Citei a transferência forçada e/ou as reservas indígenas?"
+    ]
+   },
+   {
+    "tag": "apl",
+    "q": "Escreva uma legenda de duas frases para uma foto de indígenas caminhando em fila, cansados, numa estrada de terra no frio. Use o nome certo do acontecimento.",
+    "modelo": "Marcha das Lágrimas: milhares de indígenas foram obrigados a deixar suas terras numa longa e difícil jornada a pé. Muitos morreram de fome, frio e doenças.",
+    "chk": [
+     "Usei o nome Marcha das Lágrimas?",
+     "Disse que foi um deslocamento forçado com mortes (fome, frio, doenças)?"
+    ]
+   }
+  ]
+ },
+ {
+  "porto": "Compasso 7 · A regra do caminho · Slide 5",
+  "emoji": "🏡",
+  "u": "",
+  "titulo": "A Lei de Terras nos EUA (Homestead Act, 1862)",
+  "texto": [
+   "Para ocupar o oeste, o governo também criou regras. Em <span class='destaque'>1862</span> veio a <span class='destaque'>Lei de Terras</span>, conhecida pelo nome em inglês <b>Homestead Act</b>.",
+   "<b>Quem podia migrar?</b> Pela lei, <b>apenas chefes de família ou maiores de 21 anos</b> estavam autorizados a migrar para o oeste. Quem não era chefe de família e tinha menos de 21 anos não estava autorizado.",
+   "<b>Quem regulamentou?</b> A lei foi <b>regulamentada por Abraham Lincoln</b> — o mesmo presidente que você vai encontrar na Guerra de Secessão (compassos 8 e 9).",
+   "<div class='olhar'><b>Não troque as leis:</b> a Lei de <b>Remoção Indígena</b> (1830) tirava os indígenas das suas terras; a Lei de <b>Terras</b> (1862) dizia quem podia migrar para o oeste. E repare: 1862 fica entre 1861 e 1865, os anos de início e de fim da Guerra de Secessão.</div>"
+  ],
+  "perguntas": [
+   {
+    "tag": "apl",
+    "q": "Diga quem poderia migrar para o oeste pela Lei de Terras e justifique: (a) um rapaz solteiro de 25 anos; (b) um menino de 15 anos, sozinho; (c) uma pessoa que é chefe de família.",
+    "modelo": "(a) Sim, porque tem mais de 21 anos. (b) Não, porque tem menos de 21 anos e não é chefe de família. (c) Sim, porque é chefe de família.",
+    "chk": [
+     "Acertei os três casos (sim, não, sim)?",
+     "Usei a regra “chefe de família ou maior de 21 anos” para justificar?"
+    ]
+   },
+   {
+    "tag": "conc",
+    "q": "Qual é o outro nome da Lei de Terras, de que ano ela é e quem a regulamentou?",
+    "modelo": "Homestead Act, de 1862, regulamentada por Abraham Lincoln.",
+    "chk": [
+     "Disse Homestead Act?",
+     "Disse 1862?",
+     "Disse Abraham Lincoln?"
+    ]
+   },
+   {
+    "tag": "apl",
+    "q": "Um colega trocou tudo e disse: “A Lei de Terras de 1830 tirou os indígenas das suas terras”. Explique a confusão dele.",
+    "modelo": "Ele misturou duas leis. A que tirou os indígenas das terras foi a Lei de Remoção Indígena, de 1830. A Lei de Terras (Homestead Act) é de 1862 e dizia quem podia migrar para o oeste: chefes de família ou maiores de 21 anos.",
+    "chk": [
+     "Disse que a lei de 1830 é a Lei de Remoção Indígena?",
+     "Disse que a Lei de Terras é de 1862 e trata de quem podia migrar?"
+    ]
+   }
+  ]
+ },
+ {
+  "porto": "Compasso 8 · Tambor de guerra · Slide 7",
+  "emoji": "⚔️",
+  "u": "gb",
+  "titulo": "O início da Guerra de Secessão (1861)",
+  "texto": [
+   "O tambor agora é de guerra. A <span class='destaque'>Guerra de Secessão</span> — também chamada de <b>Guerra Civil Americana</b> — dividiu os Estados Unidos em dois lados. “Secessão” quer dizer separação. O slide mostra quatro passos até o primeiro tiro:",
+   "<b>1. A eleição de Lincoln (1860):</b> Abraham Lincoln, do <b>Partido Republicano</b>, foi eleito presidente dos EUA. Os estados do <b>Sul</b> viram a vitória dele como uma <b>ameaça aos seus interesses — a escravidão</b>.",
+   "<b>2. A secessão dos estados do Sul:</b> <b>antes da posse</b> de Lincoln, <span class='destaque'>7 estados do Sul</span> deixaram a União e formaram os <span class='destaque'>Estados Confederados da América</span>, defendendo a <b>continuidade da escravidão</b>.",
+   "<b>3. O conflito cresce:</b> a tensão aumentou com a posse de Lincoln e a recusa do Sul em aceitar a eleição dele. Os dois lados prepararam fortificações e tropas.",
+   "<b>4. O primeiro confronto:</b> em <span class='destaque'>12 de abril de 1861</span>, tropas confederadas atacaram o <b>Forte Sumter</b>, na Carolina do Sul. Esse ataque marcou o <b>início oficial</b> da Guerra de Secessão.",
+   "<div class='olhar'><b>Os dois lados:</b> <b>União</b> (estados do Norte, com Abraham Lincoln) × <b>Estados Confederados</b> (estados do Sul, com Jefferson Davis). O slide resume: “Dois lados, um país dividido”.</div>"
+  ],
+  "perguntas": [
+   {
+    "tag": "apl",
+    "q": "Coloque em ordem e explique em uma frase: (A) ataque ao Forte Sumter; (B) eleição de Lincoln; (C) 7 estados do Sul formam os Estados Confederados; (D) a tensão cresce com a posse de Lincoln.",
+    "modelo": "B → C → D → A. Lincoln foi eleito em 1860; antes da posse, 7 estados do Sul saíram da União; a tensão cresceu com a posse; e, em 12 de abril de 1861, os confederados atacaram o Forte Sumter, começando a guerra.",
+    "chk": [
+     "A ordem ficou B, C, D, A?",
+     "Disse que o ataque ao Forte Sumter (12/04/1861) foi o início oficial da guerra?"
+    ]
+   },
+   {
+    "tag": "conc",
+    "q": "Por que os estados do Sul viram a eleição de Lincoln como uma ameaça?",
+    "modelo": "Porque a vitória de Lincoln, em 1860, foi vista pelo Sul como uma ameaça aos seus interesses, que era a escravidão.",
+    "chk": [
+     "Liguei a ameaça aos interesses do Sul (a escravidão)?",
+     "Citei que ele foi eleito em 1860?"
+    ]
+   },
+   {
+    "tag": "apl",
+    "q": "Monte um quadro rápido com os dois lados da guerra: nome de cada lado, região e líder.",
+    "modelo": "União: estados do Norte, liderada por Abraham Lincoln. Estados Confederados da América: estados do Sul, liderados por Jefferson Davis.",
+    "chk": [
+     "União = Norte = Abraham Lincoln?",
+     "Confederados = Sul = Jefferson Davis?"
+    ]
+   }
+  ]
+ },
+ {
+  "porto": "Compasso 9 · O tambor silencia · Slide 8",
+  "emoji": "🕊️",
+  "u": "",
+  "titulo": "O fim da Guerra de Secessão (1865) e as consequências",
+  "texto": [
+   "A guerra acabou em <span class='destaque'>9 de abril de 1865</span>, com a <b>rendição do exército confederado em <span class='destaque'>Appomattox</span></b>. O general <b>Robert E. Lee</b>, líder do exército do Sul, rendeu-se ao general <b>Ulysses S. Grant</b>, marcando o fim da guerra.",
+   "O slide mostra <b>cinco consequências</b>:",
+   "<ul><li><b>Fim da escravidão:</b> a escravidão foi abolida de fato em todo o território dos EUA.</li><li><b>Reconstrução do Sul:</b> os estados do Sul passaram por um processo de reconstrução política, social e econômica, com <b>forte intervenção do governo federal</b>.</li><li><b>Mudanças sociais:</b> milhões de ex-escravizados conquistaram a liberdade, <b>mas</b> enfrentaram discriminação, pobreza e falta de direitos.</li><li><b>Expansão econômica do Norte:</b> o Norte se fortaleceu economicamente, com a indústria e o comércio em crescimento, e passou a ter maior influência política no país.</li><li><b>Fim da divisão nacional:</b> a vitória da União garantiu a preservação dos EUA como um país unificado e o fim da ideia de secessão.</li></ul>",
+   "Para o slide, o fim da guerra marcou o <b>início de uma nova era</b> para os Estados Unidos, com desafios, mas também com grandes transformações.",
+   "<div class='olhar'><b>Pegadinha clássica:</b> liberdade não resolveu tudo. Os ex-escravizados ficaram livres, <b>mas</b> enfrentaram discriminação, pobreza e falta de direitos. E quem se rendeu foi <b>Lee (Sul)</b> a <b>Grant</b> — não o contrário.</div>"
+  ],
+  "perguntas": [
+   {
+    "tag": "conc",
+    "q": "No fim da Guerra de Secessão, quem se rendeu a quem, onde e quando?",
+    "modelo": "O general Robert E. Lee, líder do exército do Sul, rendeu-se ao general Ulysses S. Grant, em Appomattox, em 9 de abril de 1865.",
+    "chk": [
+     "Disse que Lee (Sul) se rendeu a Grant?",
+     "Disse Appomattox e 9 de abril de 1865?"
+    ]
+   },
+   {
+    "tag": "apl",
+    "q": "Imagine que um jornal escreveu: “Com o fim da escravidão, os ex-escravizados passaram a viver com todos os direitos e sem nenhum problema”. O que está errado nessa frase?",
+    "modelo": "Está errado porque, mesmo conquistando a liberdade, milhões de ex-escravizados enfrentaram discriminação, pobreza e falta de direitos.",
+    "chk": [
+     "Disse que eles conquistaram a liberdade, mas não tiveram todos os direitos?",
+     "Citei discriminação, pobreza ou falta de direitos?"
+    ]
+   },
+   {
+    "tag": "apl",
+    "q": "Escolha duas consequências da guerra e explique cada uma com as suas palavras: uma sobre o Norte e uma sobre o Sul.",
+    "modelo": "Norte: ficou mais forte na economia, com a indústria e o comércio crescendo, e ganhou mais influência política no país. Sul: passou pela Reconstrução, com mudanças políticas, sociais e econômicas e forte intervenção do governo federal.",
+    "chk": [
+     "Sobre o Norte, falei da expansão econômica (indústria, comércio ou influência política)?",
+     "Sobre o Sul, falei da Reconstrução com intervenção do governo federal?"
+    ]
+   }
+  ]
+ },
+ {
+  "porto": "Compasso 10 · O rufar da liberdade · Slide 9",
+  "emoji": "🏮",
+  "u": "gb",
+  "titulo": "Harriet Tubman: coragem que libertou vidas",
+  "texto": [
+   "O último compasso tem nome de gente: <span class='destaque'>Harriet Tubman</span>, apresentada no slide como a “coragem que libertou vidas” e “uma guerreira pelo fim da escravidão”.",
+   "<b>O caminho:</b> ela percorreu cerca de <span class='destaque'>160 km</span>, de <b>Maryland</b> em direção à <b>Filadélfia</b>, e guiou um grupo de <b>mais de 300 pessoas escravizadas</b> até a liberdade. Em <b>diversas viagens</b>, conduziu essas pessoas com segurança até o <b>Norte</b>, onde podiam recomeçar suas vidas.",
+   "<b>Na guerra:</b> durante a Guerra Civil Americana (a Guerra de Secessão), atuou pelo <b>Exército da União</b> como <span class='destaque'>espiã, guia e enfermeira</span>. Contribuiu para a <b>vitória da União</b>, ajudando a libertar outros escravizados e a <b>enfraquecer o exército confederado</b>.",
+   "<div class='olhar'><b>Frase do slide para guardar:</b> “160 km de esperança, mais de 300 vidas livres e uma guerreira pelo fim da escravidão”. Os números que a prova pode cobrar: <b>160 km</b> e <b>mais de 300 pessoas</b>.</div>"
+  ],
+  "perguntas": [
+   {
+    "tag": "apl",
+    "q": "Por que fazia sentido levar as pessoas escravizadas para o Norte? Use o que você aprendeu sobre os dois lados da guerra.",
+    "modelo": "Porque o Sul defendia a continuidade da escravidão (os Confederados se separaram para mantê-la), e no Norte essas pessoas podiam recomeçar suas vidas em liberdade.",
+    "chk": [
+     "Disse que o Sul defendia a escravidão?",
+     "Disse que no Norte elas podiam recomeçar a vida livres?"
+    ]
+   },
+   {
+    "tag": "conc",
+    "q": "Quais foram as três funções de Harriet Tubman no Exército da União?",
+    "modelo": "Ela atuou como espiã, guia e enfermeira, durante a Guerra Civil Americana (Guerra de Secessão).",
+    "chk": [
+     "Citei as três funções (espiã, guia e enfermeira)?",
+     "Disse que foi pela União, durante a guerra?"
+    ]
+   },
+   {
+    "tag": "apl",
+    "q": "Monte um “cartão de herói” de Harriet Tubman com três informações: um número, um lugar e uma ação dela na guerra.",
+    "modelo": "Harriet Tubman — libertou mais de 300 pessoas escravizadas; percorreu cerca de 160 km de Maryland rumo à Filadélfia; na guerra, foi espiã, guia e enfermeira da União.",
+    "chk": [
+     "Usei um número certo (160 km ou mais de 300 pessoas)?",
+     "Citei um lugar (Maryland, Filadélfia ou o Norte)?",
+     "Citei uma ação na guerra (espiã, guia ou enfermeira)?"
+    ]
+   }
+  ]
+ }
+];
+
+/* ====== PLACAR ====== */
+function renderPlacar(){
+  var c=document.getElementById('pts'); var h=''; var feitos=0;
+  BLOCOS.forEach(function(bl,i){ var b=estado.blocos[i]||{}; var cls='pt'+(b.conferido?' feito':(b.aberto||i===0?' aberto':'')); if(b.conferido) feitos++; h+='<div class="'+cls+'" onclick="irBloco('+i+')">'+(b.conferido?'✔':String(i+1))+'<small>Compasso '+(i+1)+'</small></div>'; });
+  c.innerHTML=h;
+  document.getElementById('placar-total').textContent=(feitos<10?'0':'')+feitos+' / '+BLOCOS.length;
+}
+function irBloco(i){ var el=document.getElementById('bloco'+i); if(el) el.scrollIntoView({behavior:'smooth',block:'start'}); }
+
+/* ====== ESTADO E PERSISTÊNCIA ====== */
+var CHAVE=KIT+'_leitura_v1';
+var mem={};
+var estado=carregar();
+
+function carregar(){
+  try{ var s=localStorage.getItem(CHAVE); if(s) return JSON.parse(s); }catch(e){ if(mem[CHAVE]) return JSON.parse(mem[CHAVE]); }
+  return {blocos:{}};
+}
+function calcProgresso(){
+  var conf=0, chkPend=0;
+  BLOCOS.forEach(function(bloco,i){
+    var b=estado.blocos[i]; if(!b||!b.conferido) return; conf++;
+    bloco.perguntas.forEach(function(p,j){ var ep=(b.perguntas&&b.perguntas[j])||{chk:{}}; p.chk.forEach(function(pt,k){ if(!ep.chk||!ep.chk[k]) chkPend++; }); });
+  });
+  estado.progresso={conferidos:conf,total:BLOCOS.length,chkPendentes:chkPend};
+  if(conf===BLOCOS.length && chkPend===0){ if(!estado.concluido){ estado.concluido=true; estado.concluidoEm=new Date().toISOString(); } }
+  return estado.progresso;
+}
+function salvar(){
+  calcProgresso();
+  var s=JSON.stringify(estado);
+  try{ localStorage.setItem(CHAVE,s); }catch(e){ mem[CHAVE]=s; }
+  var d=new Date();
+  document.getElementById('salvo').textContent='💾 Salvo às '+d.toLocaleTimeString('pt-BR')+' de '+d.toLocaleDateString('pt-BR');
+  atualizarTrilhaFim();
+  renderPlacar();
+}
+function atualizarTrilhaFim(){
+  var p=estado.progresso||calcProgresso();
+  var box=document.getElementById('trilha-fim'), txt=document.getElementById('trilha-fim-txt'), btn=document.getElementById('btn-prox');
+  var h3=box.querySelector('h3');
+  if(estado.concluido||trilhaLiberada()){
+    h3.textContent='✅ Leitura concluída — Quiz destravado!';
+    txt.textContent=estado.concluido?'Você conferiu os '+BLOCOS.length+' compassos e respondeu a autoavaliação. Agora teste o que aprendeu no Ensaio do Toque.':'Trilha liberada pelos pais.';
+    btn.classList.remove('off');
+  } else {
+    h3.textContent='🔒 Próxima etapa: Quiz';
+    var faltam=p.total-p.conferidos;
+    txt.textContent=faltam>0 ? 'Destrava quando você conferir os '+p.total+' compassos (faltam '+faltam+').' : 'Falta responder a autoavaliação Sim/Não de '+p.chkPendentes+' ponto(s) para destravar.';
+    btn.classList.add('off');
+  }
+  marcarNav();
+}
+function estBloco(i){ if(!estado.blocos[i]) estado.blocos[i]={aberto:i===0,conferido:false,perguntas:{}}; return estado.blocos[i]; }
+function estPerg(i,j){ var b=estBloco(i); if(!b.perguntas[j]) b.perguntas[j]={resp:'',warned:false,red:false,tentou:'',chk:{}}; return b.perguntas[j]; }
+
+/* ====== ANTICÓPIA (motor validado — Português 7º, 08/10/2026; mesmo motor dos kits 6º SJ, reaproveitado no 8º SJ) ====== */
+function normPal(s){
+  return (s||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/<[^>]*>/g,' ').replace(/[^a-z0-9\s]/g,' ').replace(/\s+/g,' ').trim().split(' ').filter(Boolean);
+}
+function maiorRun(aw,bw){
+  var bStr=' '+bw.join(' ')+' ', best=0;
+  for(var i=0;i<aw.length;i++){
+    for(var len=aw.length-i; len>0; len--){
+      var sub=aw.slice(i,i+len).join(' ');
+      if(bStr.indexOf(' '+sub+' ')>=0){ if(len>best)best=len; break; }
+    }
+  }
+  return best;
+}
+function cobertoPorRuns(aw,bw,minRun){
+  var bStr=' '+bw.join(' ')+' ', cov=new Array(aw.length).fill(false);
+  for(var i=0;i<aw.length;i++){
+    for(var len=aw.length-i; len>=minRun; len--){
+      var sub=aw.slice(i,i+len).join(' ');
+      if(bStr.indexOf(' '+sub+' ')>=0){ for(var k=i;k<i+len;k++)cov[k]=true; break; }
+    }
+  }
+  return cov.filter(Boolean).length;
+}
+function ehCopia(resp, textoBloco, pergunta){
+  var a=normPal(resp), src=normPal(textoBloco), q=normPal(pergunta);
+  if(a.length<5) return false;
+  var qStr=' '+q.join(' ')+' ', keep=new Array(a.length).fill(true);
+  for(var i=0;i<a.length;i++){
+    for(var len=a.length-i; len>=4; len--){
+      var sub=a.slice(i,i+len).join(' ');
+      if(qStr.indexOf(' '+sub+' ')>=0){ for(var k=i;k<i+len;k++)keep[k]=false; break; }
+    }
+  }
+  var af=a.filter(function(w,idx){return keep[idx];});
+  if(af.length<5) return false;
+  var run=maiorRun(af,src);
+  var cov=cobertoPorRuns(af,src,5);
+  var ratio=cov/af.length;
+  return run>=8 || ratio>0.6;
+}
+
+/* ====== RENDER ====== */
+function textoPlano(bloco){ return bloco.texto.join(' '); }
+
+function render(){
+  var cont=document.getElementById('blocos'); cont.innerHTML='';
+  BLOCOS.forEach(function(bloco,i){
+    var b=estBloco(i);
+    var div=document.createElement('div'); div.className='bloco '+bloco.u+(b.aberto?'':' travado'); div.id='bloco'+i;
+    var html='<div class="bloco-cab"><div class="num">'+(i+1)+'</div><div><div class="porto">'+bloco.porto+'</div><h3>'+bloco.emoji+' '+bloco.titulo+'</h3></div></div>';
+    if(!b.aberto){
+      html+='<div class="cadeado">🔒 Este compasso abre quando você conferir o compasso anterior.</div>';
+      div.innerHTML=html; cont.appendChild(div); return;
+    }
+    html+='<div class="bloco-corpo"><div class="texto">';
+    bloco.texto.forEach(function(p){ html+= (p.indexOf('<div')===0||p.indexOf('<ul')===0? p : '<p>'+p+'</p>'); });
+    html+='</div>';
+    bloco.perguntas.forEach(function(p,j){
+      var ep=estPerg(i,j);
+      var tagTxt=p.tag==='conc'?'Conceito':'Aplicação';
+      html+='<div class="perg'+(ep.red?' red':'')+'" id="perg'+i+'_'+j+'">';
+      html+='<span class="tag '+p.tag+'">'+tagTxt+'</span>';
+      html+='<label for="ta'+i+'_'+j+'">'+(j+1)+'. '+p.q+'</label>';
+      html+='<textarea id="ta'+i+'_'+j+'" oninput="digitou('+i+','+j+')"></textarea>';
+      html+='<div class="aviso" id="av'+i+'_'+j+'"></div>';
+      html+='<div class="modelo" id="mod'+i+'_'+j+'"><span class="lab">Resposta-modelo</span><p>'+p.modelo+'</p>';
+      html+='<div class="chk" id="chk'+i+'_'+j+'"></div></div>';
+      html+='</div>';
+    });
+    html+='<button class="conferir" id="conf'+i+'" onclick="conferir('+i+')">✔️ Conferir este compasso</button>';
+    html+='<div class="status-bloco" id="st'+i+'"></div>';
+    if(i<BLOCOS.length-1){ html+='<div class="prox" id="px'+i+'"></div>'; }
+    html+='</div>';
+    div.innerHTML=html;
+    cont.appendChild(div);
+    bloco.perguntas.forEach(function(p,j){ var ta=document.getElementById('ta'+i+'_'+j); if(ta) ta.value=estPerg(i,j).resp||''; });
+  });
+  BLOCOS.forEach(function(bloco,i){
+    var b=estBloco(i);
+    if(b.aberto && b.conferido){ mostrarConferido(i); }
+    atualizarBotao(i);
+  });
+  atualizarRelatorio();
+  atualizarTrilhaFim();
+  renderPlacar();
+}
+
+function digitou(i,j){
+  var ep=estPerg(i,j);
+  ep.resp=document.getElementById('ta'+i+'_'+j).value;
+  if(ep.red){
+    var bloco=BLOCOS[i];
+    if(!ehCopia(ep.resp, textoPlano(bloco), bloco.perguntas[j].q)){
+      ep.red=false;
+      var pd=document.getElementById('perg'+i+'_'+j); if(pd) pd.classList.remove('red');
+      var av=document.getElementById('av'+i+'_'+j); if(av){av.className='aviso'; av.textContent='';}
+    }
+  }
+  atualizarBotao(i);
+  salvar();
+  atualizarRelatorio();
+}
+
+function atualizarBotao(i){
+  var b=estBloco(i); if(!b.aberto) return;
+  var btn=document.getElementById('conf'+i); if(!btn) return;
+  if(b.conferido){ btn.disabled=true; return; }
+  var todas=true;
+  BLOCOS[i].perguntas.forEach(function(p,j){
+    var v=(document.getElementById('ta'+i+'_'+j)||{}).value||estPerg(i,j).resp||'';
+    if(v.trim().length<3) todas=false;
+  });
+  btn.disabled=!todas;
+}
+
+function conferir(i){
+  var bloco=BLOCOS[i], b=estBloco(i);
+  var algumBloqueado=false;
+  bloco.perguntas.forEach(function(p,j){
+    var ep=estPerg(i,j);
+    ep.resp=document.getElementById('ta'+i+'_'+j).value;
+    var av=document.getElementById('av'+i+'_'+j);
+    var copia=ehCopia(ep.resp, textoPlano(bloco), p.q);
+    if(copia){
+      if(!ep.warned || ep.resp===ep.tentou){
+        if(!ep.warned){ ep.warned=true; ep.tentou=ep.resp; }
+        av.className='aviso amarelo';
+        av.innerHTML='✋ Boa parte da sua resposta está igual ao texto. Tente <b>reescrever com as suas palavras</b> — explique como se fosse para um amigo, sem olhar o texto. Pode ficar mais curto e simples: o que vale é ser <b>SEU</b>.';
+        algumBloqueado=true;
+      } else {
+        ep.red=true;
+        av.className='aviso vermelho';
+        av.innerHTML='🔴 Esta resposta continua muito parecida com o texto. Ela foi aceita, mas ficou marcada para revisar. Se reescrever com as suas palavras, a marca some.';
+        document.getElementById('perg'+i+'_'+j).classList.add('red');
+      }
+    } else {
+      ep.red=false;
+      if(av){ av.className='aviso'; av.textContent=''; }
+      var pd=document.getElementById('perg'+i+'_'+j); if(pd) pd.classList.remove('red');
+    }
+  });
+  salvar();
+  if(algumBloqueado){
+    document.getElementById('st'+i).innerHTML='<span style="color:var(--laranja)">✍️ Reescreva (mude) as respostas marcadas em amarelo e clique em Conferir de novo.</span>';
+    return;
+  }
+  b.conferido=true;
+  if(i<BLOCOS.length-1){ estBloco(i+1).aberto=true; }
+  salvar();
+  render();
+  var alvo=document.getElementById('bloco'+i);
+  if(alvo) alvo.scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+function mostrarConferido(i){
+  var bloco=BLOCOS[i];
+  bloco.perguntas.forEach(function(p,j){
+    var ep=estPerg(i,j);
+    var mod=document.getElementById('mod'+i+'_'+j); if(mod) mod.classList.add('show');
+    if(ep.red){ var pd=document.getElementById('perg'+i+'_'+j); if(pd) pd.classList.add('red');
+      var av=document.getElementById('av'+i+'_'+j); if(av){av.className='aviso vermelho'; av.innerHTML='🔴 Resposta marcada para revisar (muito parecida com o texto). Reescreva com as suas palavras para tirar a marca.';}
+    }
+    var chk=document.getElementById('chk'+i+'_'+j); if(chk){
+      var h='<b style="font-size:.8rem;color:#8fe0b4">Confira você: a sua resposta…</b>';
+      p.chk.forEach(function(pt,k){
+        var val=ep.chk[k]||'';
+        h+='<div class="item"><span>'+pt+'</span><span class="simnao">'
+         +'<button class="sim'+(val==='sim'?' ativo':'')+'" onclick="marcarChk('+i+','+j+','+k+',\'sim\')">Sim</button>'
+         +'<button class="nao'+(val==='nao'?' ativo':'')+'" onclick="marcarChk('+i+','+j+','+k+',\'nao\')">Não</button>'
+         +'</span></div>';
+      });
+      chk.innerHTML=h;
+    }
+  });
+  atualizarStatusBloco(i);
+  var btn=document.getElementById('conf'+i); if(btn){ btn.textContent='✔️ Compasso conferido'; btn.disabled=true; }
+  if(i<BLOCOS.length-1){
+    var px=document.getElementById('px'+i);
+    if(px) px.innerHTML='<a href="#bloco'+(i+1)+'" onclick="irBloco('+(i+1)+');return false;">➡️ Ir para o próximo compasso</a>';
+  }
+}
+
+function marcarChk(i,j,k,val){
+  var ep=estPerg(i,j); ep.chk[k]=val;
+  salvar(); mostrarConferido(i); atualizarStatusBloco(i); atualizarRelatorio();
+}
+
+function statusPergunta(i,j){
+  var ep=estPerg(i,j), p=BLOCOS[i].perguntas[j];
+  if(ep.red) return 'revisar';
+  var temNao=false, todasResp=true;
+  p.chk.forEach(function(pt,k){ if(ep.chk[k]==='nao') temNao=true; if(!ep.chk[k]) todasResp=false; });
+  if(temNao) return 'revisar';
+  if(!todasResp) return 'pendente';
+  return 'ok';
+}
+function atualizarStatusBloco(i){
+  var st=document.getElementById('st'+i); if(!st) return;
+  var revisar=false, pendente=false;
+  BLOCOS[i].perguntas.forEach(function(p,j){ var s=statusPergunta(i,j); if(s==='revisar')revisar=true; if(s==='pendente')pendente=true; });
+  if(revisar) st.innerHTML='<span style="color:#ffb3bc">🔁 Este compasso tem pontos para revisar.</span>';
+  else if(pendente) st.innerHTML='<span style="color:var(--laranja)">📝 Responda a autoavaliação (Sim/Não) de cada pergunta.</span>';
+  else st.innerHTML='<span style="color:#8fe0b4">🥁 Compasso tocado! Tudo conferido neste compasso.</span>';
+  atualizarRelatorio();
+}
+
+function atualizarRelatorio(){
+  var lista=[], totalConf=0, totalRed=0, totalNao=0;
+  BLOCOS.forEach(function(bloco,i){
+    var b=estBloco(i); if(!b.conferido) return; totalConf++;
+    bloco.perguntas.forEach(function(p,j){
+      var ep=estPerg(i,j);
+      if(ep.red){ totalRed++; lista.push('Compasso '+(i+1)+' ('+bloco.titulo+'): pergunta '+(j+1)+' — resposta muito parecida com o texto.'); }
+      p.chk.forEach(function(pt,k){ if(ep.chk[k]==='nao'){ totalNao++; lista.push('Compasso '+(i+1)+' ('+bloco.titulo+'): revisar — "'+pt+'"'); } });
+    });
+  });
+  var rev=document.getElementById('revisar'), rl=document.getElementById('revisar-lista');
+  if(lista.length){ rev.style.display='block'; rl.innerHTML=lista.map(function(x){return '<li>'+x+'</li>';}).join(''); }
+  else { rev.style.display='none'; rl.innerHTML=''; }
+  var rc=document.getElementById('rel-conteudo');
+  rc.innerHTML='<b>Compassos conferidos:</b> '+totalConf+' de '+BLOCOS.length+'.<br>'
+    +'<b>Respostas marcadas (muito parecidas com o texto):</b> '+totalRed+'.<br>'
+    +'<b>Pontos marcados como "Não" na autoavaliação:</b> '+totalNao+'.<br>'
+    +(lista.length? '<span style="color:#ffb3bc">Há '+lista.length+' ponto(s) para revisar (lista acima).</span>' : '<span style="color:#8fe0b4">Sem pontos pendentes para revisar. 👏</span>');
+}
+
+/* ====== EXPORTAR / IMPORTAR / ZERAR ====== */
+function exportar(){
+  var dados=JSON.stringify(estado,null,2);
+  var blob=new Blob([dados],{type:'application/json'});
+  var a=document.createElement('a'); a.href=URL.createObjectURL(blob);
+  a.download='leitura-guiada_tambor-da-marcha.json'; a.click();
+}
+function importar(ev){
+  var f=ev.target.files[0]; if(!f) return;
+  var r=new FileReader();
+  r.onload=function(){ try{ estado=JSON.parse(r.result); if(!estado.blocos) estado.blocos={}; salvar(); render(); mostrarModal('✅ Progresso importado!',false); }catch(e){ mostrarModal('❌ Arquivo inválido.',false); } };
+  r.readAsText(f);
+}
+var acaoZerar=null;
+function pedirZerar(){ acaoZerar=true; mostrarModal('Tem certeza que quer apagar TODO o progresso desta leitura? (Se a leitura já foi concluída, o Quiz continua destravado.)',true); }
+function mostrarModal(txt,confirmar){
+  document.getElementById('modal-txt').innerHTML=txt;
+  document.getElementById('modal').classList.add('show');
+  document.getElementById('modal-cancel').style.display=confirmar?'inline-block':'none';
+  document.getElementById('modal-ok').textContent=confirmar?'Sim, apagar':'Ok';
+  document.getElementById('modal-ok').onclick=function(){ if(confirmar && acaoZerar){ var c=estado.concluido, ce=estado.concluidoEm; estado={blocos:{}}; if(c){estado.concluido=true; estado.concluidoEm=ce;} salvar(); render(); } acaoZerar=null; fecharModal(); };
+}
+function fecharModal(){ document.getElementById('modal').classList.remove('show'); }
+
+render();
+</script>
+</body>
+</html>

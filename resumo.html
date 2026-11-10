@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Resumo · Partitura da Marcha · Tambor da Marcha · História 8º</title>
+<style>
+  :root{
+    --fundo:#15100c; --fundo2:#211912; --aco:#3a2e24; --aco2:#4d3e31;
+    --laranja:#e6b54a; --azul:#6c9be0; --verde:#7fd08a; --vermelho:#e8584a;
+    --amarelo:#f2cf72; --texto:#f2e8da; --cinza:#a89a8a;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Segoe UI',system-ui,Arial,sans-serif;
+    background:radial-gradient(1100px 520px at 50% -10%,#33241a,#15100c 62%),var(--fundo);
+    color:var(--texto);line-height:1.6;padding-bottom:60px}
+  header{background:linear-gradient(120deg,#2e1f15,#17110c 52%,#3d1913);padding:28px 18px;text-align:center;
+    box-shadow:0 4px 18px rgba(0,0,0,.55);border-bottom:4px solid var(--laranja);position:relative;overflow:hidden}
+  header:before{content:"";position:absolute;left:50%;top:50%;width:210px;height:210px;margin:-105px 0 0 -105px;border:4px solid rgba(230,181,74,.10);border-radius:50%}
+  header:after{content:"";position:absolute;left:50%;top:50%;width:150px;height:150px;margin:-75px 0 0 -75px;border:4px solid rgba(230,181,74,.08);border-radius:50%}
+  header .selo{font-size:.76rem;letter-spacing:2px;color:#e8cf9a;text-transform:uppercase;position:relative}
+  header h1{font-size:1.6rem;margin:7px 0 3px;position:relative}
+  header p{color:#e3d6c3;font-size:.93rem;position:relative}
+  .wrap{max-width:860px;margin:0 auto;padding:16px}
+  .barra-nav{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:16px 0}
+  .barra-nav a{background:var(--fundo2);color:var(--texto);text-decoration:none;padding:7px 12px;border-radius:20px;font-size:.85rem;border:1px solid var(--aco)}
+  .barra-nav a.on{background:var(--laranja);color:#2a1d00;font-weight:bold}
+  .barra-nav a.lock{opacity:.5}
+  .intro{background:var(--fundo2);border:1px solid var(--aco);border-radius:14px;padding:16px;margin-bottom:16px}
+  .intro h2{color:var(--laranja);font-size:1.1rem;margin-bottom:8px}
+  .intro ol{margin:8px 0 0 20px}
+  .ordem{text-align:center;font-weight:bold;margin:10px 0;font-size:.95rem;color:#fff}
+  .painel{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between;
+    background:var(--fundo2);border:1px solid var(--aco);border-radius:12px;padding:10px 14px;margin-bottom:16px;font-size:.85rem}
+  .painel .btns{display:flex;gap:6px;flex-wrap:wrap}
+  button{cursor:pointer;font-family:inherit}
+  .mini{background:var(--fundo);color:var(--texto);border:1px solid var(--aco2);border-radius:8px;padding:6px 10px;font-size:.8rem;cursor:pointer;font-family:inherit}
+  .mini:hover{background:#2e231a}
+  /* ---- placar / partitura de compassos ---- */
+  .placar{background:#0e0a07;border:2px solid #3a2e24;border-radius:16px;padding:14px;margin-bottom:18px;text-align:center}
+  .placar h3{color:var(--amarelo);font-size:.95rem;letter-spacing:2px;text-transform:uppercase;margin-bottom:4px}
+  .placar p.sub{color:var(--cinza);font-size:.8rem;margin-bottom:10px}
+  .placar .pts{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+  .placar .pt{width:58px;padding:6px 0;border-radius:14px;background:#1a130d;border:2px solid var(--aco2);cursor:pointer;font-family:'Courier New',monospace;font-weight:bold;color:#7d6c5a}
+  .placar .pt small{display:block;font-family:'Segoe UI',sans-serif;font-weight:normal;font-size:.62rem}
+  .placar .pt.aberto{color:var(--laranja);border-color:var(--laranja)}
+  .placar .pt.feito{color:#07241a;background:var(--verde);border-color:var(--verde);box-shadow:0 0 10px rgba(78,208,138,.45)}
+  .placar .total{font-family:'Courier New',monospace;font-size:1.6rem;color:var(--laranja);margin-top:8px}
+  /* ---- blocos ---- */
+  .bloco{background:var(--fundo2);border:1px solid var(--aco);border-radius:16px;margin-bottom:18px;overflow:hidden;box-shadow:0 3px 12px rgba(0,0,0,.4)}
+  .bloco.travado{opacity:.55}
+  .bloco-cab{display:flex;align-items:center;gap:12px;padding:14px 16px;background:linear-gradient(90deg,#2b2016,#1d1610);border-bottom:1px solid var(--aco)}
+  .bloco-cab .num{background:var(--laranja);color:#2a1d00;font-weight:bold;width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+  .bloco.gb .bloco-cab .num{background:var(--azul);color:#06203a}
+  .bloco-cab h3{font-size:1.06rem;color:#fff}
+  .bloco-cab .porto{font-size:.7rem;color:var(--cinza);letter-spacing:1px;text-transform:uppercase}
+  .bloco-corpo{padding:16px}
+  .texto p{margin-bottom:10px}
+  .texto ul{margin:0 0 10px 20px}
+  .texto li{margin-bottom:6px}
+  .texto .destaque{color:var(--laranja);font-weight:bold}
+  .bloco.gb .texto .destaque{color:var(--azul)}
+  .olhar{background:#2a2017;border-left:3px solid var(--amarelo);padding:8px 12px;margin:0 0 10px;border-radius:0 8px 8px 0;font-size:.92rem}
+  .olhar b{color:var(--amarelo)}
+  .cadeado{padding:22px 16px;text-align:center;color:var(--cinza);font-size:.9rem}
+  .perg{background:#1b140e;border:1px solid var(--aco);border-radius:12px;padding:12px;margin-top:14px}
+  .perg.red{border-color:var(--vermelho);box-shadow:0 0 0 1px var(--vermelho)}
+  .perg .tag{display:inline-block;font-size:.66rem;text-transform:uppercase;letter-spacing:1px;padding:2px 8px;border-radius:10px;margin-bottom:6px}
+  .tag.conc{background:#1d3550;color:#bcdcf7}
+  .tag.apl{background:#1f3f2d;color:#aee3c3}
+  .perg label{display:block;font-weight:600;margin-bottom:8px}
+  .perg textarea{width:100%;min-height:70px;background:#0f0b08;color:var(--texto);border:1px solid var(--aco2);border-radius:8px;padding:9px;font-family:inherit;font-size:.95rem;resize:vertical}
+  .aviso{margin-top:8px;padding:9px 11px;border-radius:8px;font-size:.85rem;display:none}
+  .aviso.amarelo{display:block;background:#4a3a12;border:1px solid var(--laranja);color:#ffeccb}
+  .aviso.vermelho{display:block;background:#471a1c;border:1px solid var(--vermelho);color:#ffd1cd}
+  .modelo{margin-top:10px;padding:10px 12px;background:#12301f;border:1px solid var(--verde);border-radius:8px;font-size:.9rem;display:none}
+  .modelo.show{display:block}
+  .modelo .lab{color:#8fe3b4;font-weight:bold;font-size:.78rem;text-transform:uppercase;letter-spacing:1px}
+  .chk{margin-top:10px;font-size:.88rem}
+  .chk .item{display:flex;align-items:center;gap:8px;margin:6px 0;flex-wrap:wrap}
+  .chk .item span{flex:1;min-width:180px}
+  .chk .simnao button{border:1px solid var(--aco2);background:#0f0b08;color:var(--texto);border-radius:6px;padding:4px 10px;margin-left:4px;font-size:.8rem}
+  .chk .simnao button.sim.ativo{background:var(--verde);border-color:var(--verde);color:#04231a}
+  .chk .simnao button.nao.ativo{background:var(--vermelho);border-color:var(--vermelho);color:#fff}
+  .conferir{margin-top:14px;background:var(--verde);color:#04231a;border:none;border-radius:10px;padding:11px 18px;font-size:1rem;font-weight:bold;width:100%}
+  .conferir:disabled{background:#3a2e24;color:#8f7f6c;cursor:not-allowed}
+  .status-bloco{margin-top:10px;text-align:center;font-weight:bold;font-size:.95rem}
+  .prox{margin-top:12px;text-align:center}
+  .prox a{color:var(--azul);text-decoration:none;font-weight:bold}
+  .peg{background:#3a1a20;border:2px solid var(--vermelho);border-radius:16px;padding:16px;margin-top:20px}
+  .peg h3{color:#ffb9b3;margin-bottom:10px}
+  .peg ol{margin-left:20px}
+  .peg li{margin-bottom:7px}
+  .cobertura{background:var(--fundo2);border:1px solid var(--aco);border-radius:16px;padding:16px;margin-top:18px}
+  .cobertura h3{color:var(--azul);margin-bottom:10px}
+  table{width:100%;border-collapse:collapse;font-size:.85rem}
+  th,td{border:1px solid var(--aco);padding:7px 9px;text-align:left;vertical-align:top}
+  th{background:#2c2219}
+  .revisar{background:#3a2d12;border:2px solid var(--laranja);border-radius:16px;padding:16px;margin-top:18px}
+  .revisar h3{color:var(--laranja);margin-bottom:8px}
+  .revisar ul{margin-left:18px}
+  .relatorio{background:var(--fundo2);border:1px dashed var(--azul);border-radius:14px;padding:16px;margin-top:18px;font-size:.9rem}
+  .relatorio h3{color:var(--azul);margin-bottom:8px}
+  .trilha-fim{background:linear-gradient(120deg,#1a2a20,#153328);border:2px solid var(--verde);border-radius:16px;padding:18px;margin-top:18px;text-align:center}
+  .trilha-fim h3{color:#8fe3b4;margin-bottom:8px}
+  .trilha-fim a.btn{display:inline-block;margin-top:8px;background:var(--verde);color:#04231a;text-decoration:none;font-weight:bold;padding:11px 20px;border-radius:10px}
+  .trilha-fim a.btn.off{background:#3a2e24;color:#8f7f6c;pointer-events:none}
+  /* ---- quiz / simulado ---- */
+  .codigo{background:linear-gradient(120deg,#153328,#1b4a35);border:2px solid var(--verde);border-radius:14px;padding:16px;text-align:center;margin-bottom:16px;display:none}
+  .codigo.show{display:block}
+  .codigo .cod{font-size:1.8rem;font-weight:bold;letter-spacing:3px;color:#8fe3b4;margin:6px 0}
+  .progresso{height:10px;background:var(--aco);border-radius:6px;overflow:hidden;margin-bottom:16px}
+  .progresso div{height:100%;background:linear-gradient(90deg,var(--azul),var(--laranja));width:0;transition:width .3s}
+  .q{background:var(--fundo2);border:1px solid var(--aco);border-radius:16px;padding:16px;margin-bottom:14px}
+  .q .num{color:var(--azul);font-weight:bold;font-size:.8rem;letter-spacing:1px;text-transform:uppercase}
+  .q .tema,.q .tipo{float:right;font-size:.7rem;color:var(--cinza);background:var(--fundo);border:1px solid var(--aco2);border-radius:10px;padding:2px 8px}
+  .q .tipo.rom{color:#f3d58a;border-color:var(--laranja)}
+  .q h3{font-size:1rem;margin:6px 0 10px;font-weight:600}
+  .afirm{background:#1b140e;border-left:3px solid var(--aco2);padding:8px 12px;margin:6px 0;border-radius:0 8px 8px 0;font-size:.93rem}
+  .afirm.ok{border-left-color:var(--verde)}
+  .afirm.no{border-left-color:#777;color:#aaa}
+  .alt{display:block;background:#1b140e;border:1px solid var(--aco2);border-radius:10px;padding:10px 12px;margin:6px 0;cursor:pointer}
+  .alt:hover{border-color:var(--laranja)}
+  .alt input{margin-right:8px}
+  .alt.sel{border-color:var(--laranja);background:#2a2314}
+  .alt.certa{border-color:var(--verde);background:#12301f}
+  .alt.errada{border-color:#4a4a55;background:#1f1813;color:#a7a7b2}
+  .alt.marcada-errada{border-color:var(--vermelho);background:#3a1a20}
+  .exp{margin-top:8px;font-size:.88rem;padding:8px 10px;border-radius:8px;background:#140f0a;border-left:3px solid var(--laranja);display:none}
+  .exp.show{display:block}
+  .enviar{width:100%;background:var(--laranja);color:#2a1d00;border:none;border-radius:12px;padding:14px;font-size:1.05rem;font-weight:bold;margin:10px 0}
+  .enviar:disabled{background:#3a2e24;color:#8f7f6c;cursor:not-allowed}
+  .gab{background:var(--fundo2);border:1px dashed var(--azul);border-radius:14px;padding:16px;margin:16px 0;display:none}
+  .gab.show{display:block}
+  .gab input{padding:9px;border-radius:8px;border:1px solid var(--aco2);background:#0f0b08;color:var(--texto);font-size:1rem;width:180px;text-transform:uppercase}
+  .gab button{background:var(--azul);color:#06203a;border:none;border-radius:8px;padding:9px 14px;font-weight:bold;margin-left:6px}
+  .gab .msg{margin-top:8px;font-size:.9rem}
+  /* ---- resumo ---- */
+  .sec{margin:26px 0 12px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+  .sec h2{font-size:1.25rem}
+  .sec .pill{font-size:.7rem;letter-spacing:1px;text-transform:uppercase;padding:3px 10px;border-radius:12px;background:var(--laranja);color:#2a1d00;font-weight:bold}
+  .sec .pill.gb{background:var(--azul);color:#06203a}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px}
+  .card{background:var(--fundo2);border:1px solid var(--aco);border-radius:14px;padding:14px;border-top:4px solid var(--laranja)}
+  .card.gb{border-top-color:var(--azul)}
+  .card h3{font-size:1rem;margin-bottom:8px}
+  .card ul{margin-left:18px}
+  .card li{margin-bottom:5px;font-size:.93rem}
+  .card b{color:var(--laranja)}
+  .card.gb b{color:var(--azul)}
+  .grande{background:linear-gradient(120deg,#2b2016,#1d1610);border:2px solid var(--laranja);border-radius:16px;padding:16px;font-size:1.02rem}
+  .grande b{color:var(--amarelo)}
+  .postit{background:#ffe88a;color:#3a2a00;border-radius:4px;padding:12px 14px;font-size:.92rem;box-shadow:3px 4px 10px rgba(0,0,0,.45);transform:rotate(-1deg);margin:12px 0}
+  .postit b{color:#7a4a00}
+  .pegbox{background:#3a1a20;border:2px solid var(--vermelho);border-radius:12px;padding:12px 14px;margin:12px 0;font-size:.92rem}
+  .pegbox b{color:#ffb9b3}
+  .flips{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+  .flip{perspective:900px;height:185px;cursor:pointer}
+  .flip .inner{position:relative;width:100%;height:100%;transition:transform .5s;transform-style:preserve-3d}
+  .flip.on .inner{transform:rotateY(180deg)}
+  .flip .face{position:absolute;inset:0;backface-visibility:hidden;border-radius:12px;padding:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;font-size:.88rem}
+  .flip .front{background:linear-gradient(135deg,#33241a,#1d1610);border:1px solid var(--aco2);font-weight:bold;font-size:1rem}
+  .flip .front small{display:block;color:var(--cinza);font-weight:normal;font-size:.72rem;margin-top:6px}
+  .flip .back{background:#12301f;border:1px solid var(--verde);transform:rotateY(180deg)}
+  .tabela{width:100%;border-collapse:collapse;font-size:.88rem;margin-top:8px}
+  .tabela th,.tabela td{border:1px solid var(--aco);padding:7px 9px;text-align:left;vertical-align:top}
+  .tabela th{background:#2c2219}
+  .duelo{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px}
+  .duelo .lado{background:#1b140e;border-radius:12px;padding:12px;border:2px solid var(--aco2);text-align:center}
+  .duelo .lado.l1{border-color:var(--azul)}
+  .duelo .lado.l2{border-color:var(--laranja)}
+  .duelo .lado .ic{font-size:2rem}
+  .duelo h4{margin:4px 0}
+  .duelo.tres{grid-template-columns:1fr 1fr 1fr}
+  @media(max-width:600px){.duelo,.duelo.tres{grid-template-columns:1fr}}
+  .numeros{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+  .numeros div{background:#0e0a07;border:1px solid #3a2e24;border-radius:12px;padding:10px;text-align:center;font-size:.82rem}
+  .numeros div span{display:block;font-family:'Courier New',monospace;font-size:1.35rem;font-weight:bold;color:var(--laranja)}
+  .linha{border-left:3px solid var(--laranja);margin:10px 0 10px 10px;padding-left:16px}
+  .linha .ev{position:relative;margin-bottom:12px}
+  .linha .ev:before{content:"";position:absolute;left:-23px;top:7px;width:11px;height:11px;border-radius:50%;background:var(--laranja);box-shadow:0 0 0 3px rgba(230,181,74,.2)}
+  .linha .ev b{color:var(--amarelo);display:block;font-family:'Courier New',monospace}
+  .gloss{columns:2;column-gap:18px}
+  .gloss div{break-inside:avoid;margin-bottom:8px;font-size:.9rem}
+  .gloss b{color:var(--laranja)}
+  @media(max-width:600px){.gloss{columns:1}}
+  .fim{background:linear-gradient(120deg,#1a2a20,#153328);border:2px solid var(--verde);border-radius:16px;padding:18px;margin-top:24px;text-align:center}
+  .fim h3{color:#8fe3b4;margin-bottom:8px}
+  .fim button{background:var(--verde);color:#04231a;border:none;border-radius:10px;padding:12px 20px;font-size:1rem;font-weight:bold;margin:6px;cursor:pointer;font-family:inherit}
+  .fim button:disabled{background:#3a2e24;color:#8f7f6c;cursor:not-allowed}
+  .fim a,.fim a.btn{display:inline-block;margin:6px;background:var(--azul);color:#06203a;text-decoration:none;font-weight:bold;padding:12px 20px;border-radius:10px}
+  .fim a.btn.off{background:#3a2e24;color:#8f7f6c;pointer-events:none}
+  /* ---- index ---- */
+  .selo-pais{display:none;background:#153328;border:1px solid var(--verde);color:#8fe3b4;border-radius:10px;padding:10px 14px;margin:12px 0;text-align:center;font-weight:bold}
+  .selo-pais.show{display:block}
+  .selo-pais button{margin-left:10px;background:transparent;border:1px solid var(--verde);color:#8fe3b4;border-radius:8px;padding:4px 10px;cursor:pointer;font-family:inherit}
+  .trilha{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;margin:16px 0}
+  .trilha .card{position:relative;background:var(--fundo2);border:1px solid var(--aco);border-top:1px solid var(--aco);border-radius:16px;padding:16px;text-decoration:none;color:var(--texto);display:block;transition:transform .15s,box-shadow .15s}
+  .trilha .card .passo{font-size:.7rem;letter-spacing:1px;text-transform:uppercase;color:var(--cinza)}
+  .trilha .card .emoji{font-size:2rem;margin:4px 0}
+  .trilha .card h3{font-size:1.05rem;margin-bottom:6px}
+  .trilha .card p{font-size:.85rem;color:#d8cbb8}
+  .trilha .card .estado{margin-top:10px;font-size:.8rem;font-weight:bold;padding:6px 8px;border-radius:8px}
+  .trilha .card.aberto{border-color:var(--laranja)}
+  .trilha .card.aberto:hover{transform:translateY(-3px);box-shadow:0 8px 22px rgba(230,181,74,.22)}
+  .trilha .card.aberto .estado{background:#2a2314;color:var(--laranja)}
+  .trilha .card.novo{animation:brilho 1.6s ease-in-out 3;border-color:var(--laranja)}
+  @keyframes brilho{0%,100%{box-shadow:0 0 0 rgba(230,181,74,0)}50%{box-shadow:0 0 22px rgba(230,181,74,.6)}}
+  .trilha .card.novo .estado{background:#3a2d12;color:var(--laranja)}
+  .trilha .card.feito{border-color:var(--verde)}
+  .trilha .card.feito .estado{background:#12301f;color:#8fe3b4}
+  .trilha .card.trancado{opacity:.55;filter:grayscale(.6);pointer-events:none;cursor:not-allowed}
+  .trilha .card.trancado .estado{background:#241b13;color:var(--cinza)}
+  .trilha .card .cadeado{position:absolute;top:10px;right:12px;font-size:1.3rem;padding:0}
+  .como{background:var(--fundo2);border:1px solid var(--aco);border-radius:14px;padding:16px;margin:16px 0}
+  .como h2{color:var(--azul);font-size:1.1rem;margin-bottom:8px}
+  .como ol{margin-left:20px}
+  .como li{margin-bottom:6px}
+  .cai{background:#2a2017;border-left:4px solid var(--amarelo);border-radius:0 12px 12px 0;padding:14px 16px;margin:16px 0;font-size:.93rem}
+  .cai h2{color:var(--amarelo);font-size:1.05rem;margin-bottom:6px}
+  .cai p{margin-bottom:6px}
+  .rel{background:var(--fundo2);border:1px dashed var(--azul);border-radius:14px;padding:16px;margin:16px 0}
+  .rel h2{color:var(--azul);font-size:1.1rem;margin-bottom:8px}
+  .rel input{padding:9px;border-radius:8px;border:1px solid var(--aco2);background:#0f0b08;color:var(--texto);font-size:1rem;width:170px;text-transform:uppercase}
+  .rel button{background:var(--azul);color:#06203a;border:none;border-radius:8px;padding:9px 14px;font-weight:bold;margin-left:6px;cursor:pointer;font-family:inherit}
+  .rel .out{margin-top:12px;font-size:.9rem}
+  .rel .bloco{background:#1b140e;border:1px solid var(--aco);border-radius:10px;padding:10px 12px;margin:8px 0}
+  .rel .bloco b{color:var(--laranja)}
+  .rel .liberar{margin-top:10px;background:var(--verde);color:#04231a}
+  .rel .perigo{background:#471a1c;color:#ffd1cd;border:1px solid var(--vermelho)}
+  .dica{background:#ffe88a;color:#3a2a00;border-radius:4px;padding:12px 14px;font-size:.9rem;box-shadow:3px 4px 10px rgba(0,0,0,.45);transform:rotate(-1deg);margin:16px 0}
+  .dica b{color:#7a4a00}
+  /* ---- modais ---- */
+  .modal-bg{display:none;position:fixed;inset:0;background:rgba(10,7,4,.93);z-index:50;align-items:center;justify-content:center;padding:16px}
+  .modal-bg.show{display:flex}
+  .modal{background:var(--fundo2);border:1px solid var(--laranja);border-radius:14px;padding:22px;max-width:440px;text-align:center}
+  .modal p{margin-bottom:14px}
+  .modal .big{font-size:2.2rem}
+  .modal a,.modal button{display:inline-block;background:var(--laranja);color:#2a1d00;border:none;border-radius:8px;padding:10px 18px;font-weight:bold;text-decoration:none;font-family:inherit;cursor:pointer}
+  .modal button.sec,.modal .mini{background:transparent;border:1px solid var(--aco2);color:var(--texto);margin-left:8px}
+  .rodape{text-align:center;color:var(--cinza);font-size:.8rem;margin-top:24px}
+
+  body.sim header{background:linear-gradient(120deg,#14264a,#0c1830 60%,#1d2f55);border-bottom-color:var(--vermelho)}
+  body.sim header:before,body.sim header:after{border-color:rgba(232,88,74,.14)}
+  body.sim .enviar{background:var(--vermelho);color:#fff}
+  body.sim .progresso div{background:linear-gradient(90deg,#b8372b,var(--vermelho))}
+  .q .tipo.som{color:#bcd3f7;border-color:var(--azul)}
+  .q .tipo.disc{color:#c9ecc0;border-color:var(--verde)}
+  .somin{margin-top:10px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-weight:600}
+  .somin input{width:120px;padding:9px;border-radius:8px;border:1px solid var(--aco2);background:#0f0b08;color:var(--texto);font-size:1.1rem;font-family:inherit}
+  .disc-ta{width:100%;min-height:130px;background:#0f0b08;color:var(--texto);border:1px solid var(--aco2);border-radius:8px;padding:10px;font-family:inherit;font-size:.95rem;resize:vertical;margin-top:6px}
+  .modelo-disc{margin-top:10px;padding:10px 12px;background:#12301f;border:1px solid var(--verde);border-radius:8px;font-size:.9rem}
+  .modelo-disc .lab{color:#9fe3a8;font-weight:bold;font-size:.78rem;text-transform:uppercase;letter-spacing:1px;display:block;margin-bottom:4px}
+  .compassos{display:flex;gap:4px;justify-content:center;margin:6px 0 2px;font-size:1.1rem;letter-spacing:2px}
+</style>
+</head>
+<body>
+<header>
+  <div class="selo">Tambor da Marcha · História 8º ano · Colégio São José</div>
+  <h1>🗺️ Resumo — Partitura da Marcha</h1>
+  <p>Tudo o que cai, em linha do tempo, tabelas, cartas e post-its · Fonte: os 9 slides da aula</p>
+</header>
+
+<div class="wrap">
+  <nav class="barra-nav" id="nav">
+    <a href="leitura-guiada.html">📖 Leitura Guiada</a>
+    <a href="quiz.html" data-etapa="quiz">🎯 Quiz</a>
+    <a class="on" href="resumo.html">🗺️ Resumo</a>
+    <a href="simulado.html" data-etapa="simulado">📝 Simulado</a>
+    <a href="index.html">🏠 Início</a>
+  </nav>
+
+  <div class="intro">
+    <h2>🎼 A partitura</h2>
+    <p>Todo tambor de marcha segue uma partitura. Esta é a sua: tudo o que cai na prova sobre a <b>Marcha para o Oeste</b> e a <b>Guerra de Secessão</b>, em linha do tempo, tabelas, cards, cartas para virar e post-its. Use para fechar as dúvidas que o Ensaio do Toque (Quiz) mostrou. No fim da página, clique em <b>“✅ Li o resumo até o fim”</b> para destravar o Simulado.</p>
+  </div>
+  <div class="painel"><span id="salvo">📏 Rolagem máxima: 0%</span><button class="mini" onclick="exportar()">📥 Exportar</button></div>
+
+  <div class="sec"><span class="pill">Linha do tempo</span><h2>🕰️ As datas que a prova cobra</h2></div>
+  <div class="linha">
+    <div class="ev"><b>1803</b><strong>Compra da Louisiana</strong>, da França.</div>
+    <div class="ev"><b>1823</b><strong>Doutrina Monroe</strong>: “América para os americanos!”, do presidente James Monroe.</div>
+    <div class="ev"><b>1830</b><strong>Lei de Remoção Indígena</strong>: transferência forçada de comunidades indígenas e criação de reservas.</div>
+    <div class="ev"><b>1845</b><strong>Anexação do Texas</strong>.</div>
+    <div class="ev"><b>1846</b><strong>Território de Oregon</strong>, por acordo com a Grã-Bretanha.</div>
+    <div class="ev"><b>1848</b><strong>Território mexicano</strong>, por guerra/cessão (Tratado de Guadalupe Hidalgo).</div>
+    <div class="ev"><b>1853</b><strong>Compra Gadsden</strong>, do México.</div>
+    <div class="ev"><b>1860</b>Abraham Lincoln, do Partido Republicano, é <strong>eleito presidente</strong>. Antes da posse, 7 estados do Sul formam os Estados Confederados.</div>
+    <div class="ev"><b>12/04/1861</b>Tropas confederadas atacam o <strong>Forte Sumter</strong> (Carolina do Sul): início oficial da Guerra de Secessão.</div>
+    <div class="ev"><b>1862</b><strong>Lei de Terras (Homestead Act)</strong>, regulamentada por Abraham Lincoln.</div>
+    <div class="ev"><b>09/04/1865</b>Rendição do exército confederado em <strong>Appomattox</strong>: Lee se rende a Grant. Fim da guerra.</div>
+  </div>
+  <div class="postit">📌 <b>Dica de prova:</b> a Marcha para o Oeste é do <b>século XIX</b>. A Marcha das Lágrimas e o extermínio dos búfalos não têm data nos slides — ligue-os aos <b>povos indígenas</b> e à Lei de Remoção (1830).</div>
+
+  <div class="sec"><span class="pill">Compassos 1 e 2 · Slide 1</span><h2>🧭 A Marcha para o Oeste em 4 cards</h2></div>
+  <div class="grid">
+    <div class="card"><h3>❓ O que foi?</h3><ul><li><b>Expansão do território</b> dos Estados Unidos <b>para o oeste</b>, no século XIX.</li></ul></div>
+    <div class="card gb"><h3>🎯 Principais motivos</h3><ul><li>Busca por <b>novas terras</b> para agricultura e pecuária</li><li><b>Oportunidades econômicas</b></li><li>Oportunidade de uma <b>vida melhor</b></li><li>Expansão do <b>“destino manifesto”</b> (ideia de que os EUA deveriam crescer)</li></ul></div>
+    <div class="card"><h3>🐎 Como aconteceu?</h3><ul><li>Pioneiros e famílias em <b>caravanas</b> (trilhas)</li><li>Construção de <b>ferrovias</b> (mais tarde)</li><li><b>Aquisição de terras</b> (oeste como “fronteira”)</li></ul></div>
+    <div class="card gb"><h3>⚖️ Consequências</h3><ul><li><b>Conflitos e deslocamento</b> dos povos indígenas</li><li><b>Destruição de ecossistemas</b> naturais</li><li><b>Crescimento econômico e industrial</b></li></ul></div>
+  </div>
+
+  <div class="sec"><span class="pill gb">Compasso 3 · Slide 2</span><h2>🗺️ Como o mapa cresceu</h2></div>
+  <div style="overflow-x:auto">
+  <table class="tabela">
+    <thead><tr><th>Ano</th><th>Território</th><th>Como</th><th>De quem / observação</th></tr></thead>
+    <tbody>
+      <tr><td><b>—</b></td><td>Estados Unidos</td><td>território original</td><td>no leste</td></tr>
+      <tr><td><b>1803</b></td><td>Louisiana</td><td><b>Compra</b></td><td>França</td></tr>
+      <tr><td><b>1845</b></td><td>Texas</td><td><b>Anexação</b></td><td>pelos EUA</td></tr>
+      <tr><td><b>1846</b></td><td>Território de Oregon</td><td><b>Acordo</b></td><td>Grã-Bretanha</td></tr>
+      <tr><td><b>1848</b></td><td>Território mexicano</td><td><b>Guerra / cessão</b></td><td>Tratado de Guadalupe Hidalgo</td></tr>
+      <tr><td><b>1853</b></td><td>Gadsden</td><td><b>Compra</b></td><td>México</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <div class="postit">📌 <b>Truque:</b> “<b>L</b>á <b>T</b>em <b>O</b>uro <b>M</b>uito <b>G</b>rande” = <b>L</b>ouisiana → <b>T</b>exas → <b>O</b>regon → <b>M</b>éxico → <b>G</b>adsden (1803 → 1845 → 1846 → 1848 → 1853).</div>
+  <div class="pegbox">⚠️ <b>Pegadinha:</b> compra = Louisiana (França) e Gadsden (México) · anexação = Texas · acordo = Oregon (Grã-Bretanha) · guerra = território mexicano.</div>
+
+  <div class="sec"><span class="pill">Compassos 4 e 5 · Slides 4 e 6</span><h2>📜 Duas ideias que não se misturam</h2></div>
+  <div class="duelo">
+    <div class="lado l2"><div class="ic">📜</div><h4>Destino Manifesto</h4><p>Ideia de que os EUA tinham uma <b>missão divina e histórica de expandir seu território</b>. Via os indígenas como “selvagens” que precisavam ser <b>educados e cristianizados</b> (“Educação + Cristianismo = Civilização”). <b>Justificava a tomada de terras indígenas</b> e a imposição da cultura americana.</p></div>
+    <div class="lado l1"><div class="ic">🌎</div><h4>Doutrina Monroe · 1823</h4><p>Do presidente <b>James Monroe</b>. “<b>América para os americanos!</b>” Rejeitava a intervenção europeia nas Américas, defendia a independência dos países latino-americanos, colocava os EUA como <b>protetor da América Latina</b> e buscava evitar o retorno do colonialismo europeu. Marcou o <b>início da política externa dos EUA na América Latina</b>.</p></div>
+  </div>
+  <div class="pegbox">⚠️ <b>Pegadinha:</b> Destino Manifesto olha <b>para dentro</b> (expandir sobre o oeste); Doutrina Monroe olha <b>para fora</b> (Europa × Américas).</div>
+
+  <div class="sec"><span class="pill gb">Compasso 6 · Slide 3</span><h2>🪶 Povos indígenas nos EUA: três golpes</h2></div>
+  <div class="duelo tres">
+    <div class="lado l2"><div class="ic">📃</div><h4>Lei de Remoção Indígena · 1830</h4><p>Transferência <b>forçada</b> de comunidades indígenas · criação de <b>reservas indígenas</b> · objetivo: <b>abrir espaço para os colonos</b>.</p></div>
+    <div class="lado l1"><div class="ic">👣</div><h4>Marcha das Lágrimas</h4><p>Deslocamento <b>forçado</b> de milhares de indígenas · longa e difícil jornada <b>a pé</b> · muitas mortes por <b>fome, frio e doenças</b>.</p></div>
+    <div class="lado l2"><div class="ic">🦬</div><h4>Extermínio dos búfalos</h4><p><b>Caça em massa</b> pelos colonos · destruição da <b>principal fonte de alimento e sustento</b> · enfraquecimento das comunidades indígenas.</p></div>
+  </div>
+  <div class="pegbox">⚠️ <b>Pegadinha:</b> Marcha para o <b>Oeste</b> (expansão dos EUA) ≠ Marcha das <b>Lágrimas</b> (indígenas expulsos).</div>
+
+  <div class="sec"><span class="pill">Compasso 7 · Slide 5</span><h2>🏡 Lei de Terras nos EUA (Homestead Act · 1862)</h2></div>
+  <div class="grande">Quem podia migrar para o oeste? <b>Apenas chefes de família ou maiores de 21 anos.</b> A lei foi <b>regulamentada por Abraham Lincoln</b>.</div>
+  <div class="pegbox">⚠️ <b>Pegadinha:</b> Lei de <b>Remoção Indígena</b> (1830) ≠ Lei de <b>Terras</b> (1862).</div>
+
+  <div class="sec"><span class="pill gb">Compassos 8 e 9 · Slides 7 e 8</span><h2>⚔️ Guerra de Secessão (Guerra Civil Americana)</h2></div>
+  <div class="duelo">
+    <div class="lado l1"><div class="ic">🔵</div><h4>União</h4><p>Estados do <b>Norte</b> · liderada por <b>Abraham Lincoln</b>, do Partido Republicano, eleito em 1860.</p></div>
+    <div class="lado l2"><div class="ic">🔴</div><h4>Estados Confederados da América</h4><p>Estados do <b>Sul</b> · liderados por <b>Jefferson Davis</b> · 7 estados deixaram a União <b>antes da posse</b> de Lincoln, defendendo a <b>continuidade da escravidão</b>.</p></div>
+  </div>
+  <div class="numeros" style="margin-top:12px">
+    <div><span>1860</span>Lincoln é eleito; o Sul vê a vitória como ameaça à escravidão</div>
+    <div><span>7</span>estados do Sul formam os Estados Confederados</div>
+    <div><span>12/04/1861</span>ataque confederado ao Forte Sumter: início da guerra</div>
+    <div><span>09/04/1865</span>Lee se rende a Grant em Appomattox: fim da guerra</div>
+  </div>
+  <div class="grid" style="margin-top:12px">
+    <div class="card"><h3>🔓 Fim da escravidão</h3><ul><li>A escravidão foi <b>abolida de fato</b> em todo o território dos EUA.</li></ul></div>
+    <div class="card gb"><h3>🏗️ Reconstrução do Sul</h3><ul><li>Reconstrução <b>política, social e econômica</b>, com <b>forte intervenção do governo federal</b>.</li></ul></div>
+    <div class="card"><h3>👥 Mudanças sociais</h3><ul><li>Milhões de ex-escravizados conquistaram a liberdade, <b>mas</b> enfrentaram <b>discriminação, pobreza e falta de direitos</b>.</li></ul></div>
+    <div class="card gb"><h3>🏭 Expansão econômica do Norte</h3><ul><li>Indústria e comércio em crescimento; <b>maior influência política</b> no país.</li></ul></div>
+    <div class="card"><h3>🏛️ Fim da divisão nacional</h3><ul><li>A vitória da União preservou os EUA como <b>país unificado</b> e acabou com a ideia de secessão.</li></ul></div>
+  </div>
+  <div class="postit">📌 <b>Dica de prova:</b> o início é no <b>Forte Sumter</b> (1861, ataque dos confederados); o fim é em <b>Appomattox</b> (1865, rendição de Lee). Não troque os lugares!</div>
+
+  <div class="sec"><span class="pill">Compasso 10 · Slide 9</span><h2>🏮 Harriet Tubman: coragem que libertou vidas</h2></div>
+  <div class="numeros">
+    <div><span>160 km</span>de Maryland em direção à Filadélfia</div>
+    <div><span>+300</span>pessoas escravizadas guiadas até a liberdade, em diversas viagens, até o Norte</div>
+    <div><span>3</span>funções pela União na guerra: espiã, guia e enfermeira</div>
+  </div>
+  <div class="postit">📌 Ela contribuiu para a <b>vitória da União</b>, ajudando a libertar outros escravizados e a <b>enfraquecer o exército confederado</b>. “160 km de esperança, mais de 300 vidas livres e uma guerreira pelo fim da escravidão.”</div>
+
+  <div class="sec"><span class="pill gb">Cartas para virar</span><h2>🃏 Quem é quem? O que é o quê?</h2></div>
+  <p style="font-size:.88rem;color:var(--cinza);margin-bottom:8px">Tente lembrar antes de virar a carta.</p>
+  <div class="flips">
+    <div class="flip" onclick="this.classList.toggle('on')"><div class="inner"><div class="face front">James Monroe<small>quem é?</small></div><div class="face back">Presidente dos EUA da <b>Doutrina Monroe</b> (1823): “América para os americanos!”.</div></div></div>
+    <div class="flip" onclick="this.classList.toggle('on')"><div class="inner"><div class="face front">Abraham Lincoln<small>quem é?</small></div><div class="face back">Eleito em <b>1860</b> (Partido Republicano); líder da <b>União</b>; regulamentou a <b>Lei de Terras</b> (1862).</div></div></div>
+    <div class="flip" onclick="this.classList.toggle('on')"><div class="inner"><div class="face front">Jefferson Davis<small>quem é?</small></div><div class="face back">Líder dos <b>Estados Confederados</b> (o Sul) na Guerra de Secessão.</div></div></div>
+    <div class="flip" onclick="this.classList.toggle('on')"><div class="inner"><div class="face front">Robert E. Lee<small>quem é?</small></div><div class="face back">General, líder do exército do <b>Sul</b>; <b>rendeu-se</b> em Appomattox (1865).</div></div></div>
+    <div class="flip" onclick="this.classList.toggle('on')"><div class="inner"><div class="face front">Ulysses S. Grant<small>quem é?</small></div><div class="face back">General a quem <b>Lee se rendeu</b>, em Appomattox, marcando o fim da guerra.</div></div></div>
+    <div class="flip" onclick="this.classList.toggle('on')"><div class="inner"><div class="face front">Harriet Tubman<small>quem é?</small></div><div class="face back">Guiou <b>mais de 300</b> escravizados até a liberdade; na guerra, foi <b>espiã, guia e enfermeira</b> da União.</div></div></div>
+    <div class="flip" onclick="this.classList.toggle('on')"><div class="inner"><div class="face front">Forte Sumter<small>o que foi?</small></div><div class="face back">Forte na Carolina do Sul atacado pelos confederados em <b>12/04/1861</b>: início da guerra.</div></div></div>
+    <div class="flip" onclick="this.classList.toggle('on')"><div class="inner"><div class="face front">Appomattox<small>o que foi?</small></div><div class="face back">Lugar da <b>rendição</b> do exército confederado, em <b>09/04/1865</b>: fim da guerra.</div></div></div>
+    <div class="flip" onclick="this.classList.toggle('on')"><div class="inner"><div class="face front">Reservas indígenas<small>o que são?</small></div><div class="face back">Áreas criadas pela <b>Lei de Remoção Indígena</b> (1830) para onde os indígenas foram transferidos à força.</div></div></div>
+    <div class="flip" onclick="this.classList.toggle('on')"><div class="inner"><div class="face front">Tratado de Guadalupe Hidalgo<small>o que foi?</small></div><div class="face back">Ligado ao <b>território mexicano</b> obtido pelos EUA por guerra/cessão, em <b>1848</b>.</div></div></div>
+  </div>
+
+  <div class="sec"><span class="pill">Glossário</span><h2>📚 Palavras da prova</h2></div>
+  <div class="gloss">
+    <div><b>Marcha para o Oeste:</b> expansão do território dos EUA para o oeste, no século XIX.</div>
+    <div><b>Pioneiros:</b> pessoas e famílias que seguiam em caravanas pelas trilhas rumo ao oeste.</div>
+    <div><b>Caravana:</b> grupo que viaja junto, seguindo as trilhas.</div>
+    <div><b>“Fronteira”:</b> como o oeste era visto — terras a serem adquiridas e ocupadas.</div>
+    <div><b>Anexação:</b> incorporação de um território, como a do Texas (1845).</div>
+    <div><b>Cessão:</b> passagem de um território para outro país; no slide, o território mexicano (1848).</div>
+    <div><b>Destino Manifesto:</b> ideia de missão divina e histórica dos EUA de expandir o território.</div>
+    <div><b>Doutrina Monroe:</b> “América para os americanos” (1823), contra a intervenção europeia.</div>
+    <div><b>Política externa:</b> o jeito de um país se relacionar com os outros países.</div>
+    <div><b>Colonialismo:</b> domínio de um país sobre outros territórios, como colônias.</div>
+    <div><b>Reserva indígena:</b> área para onde os indígenas foram transferidos à força (1830).</div>
+    <div><b>Homestead Act:</b> Lei de Terras (1862): só chefes de família ou maiores de 21 anos podiam migrar.</div>
+    <div><b>Secessão:</b> separação; os estados do Sul se separaram da União.</div>
+    <div><b>União:</b> o lado do Norte na guerra, com Abraham Lincoln.</div>
+    <div><b>Confederados:</b> os estados do Sul, que formaram os Estados Confederados da América.</div>
+    <div><b>Reconstrução:</b> processo político, social e econômico vivido pelo Sul depois da guerra.</div>
+  </div>
+
+  <div class="fim" id="fim">
+    <h3 id="fim-h3">🔒 Próxima etapa: Simulado</h3>
+    <p id="fim-txt">Role até aqui e confirme a leitura para destravar o Simulado.</p>
+    <button id="btn-li" onclick="confirmarLeitura()" disabled>✅ Li o resumo até o fim</button>
+    <a class="btn off" id="btn-prox" href="simulado.html">📝 Pronto para o Simulado!</a>
+  </div>
+
+  <div class="rodape">Feito com carinho para o jovem aprendiz. 🥁</div>
+</div>
+
+<div class="modal-bg" id="lock">
+  <div class="modal">
+    <div class="big">🔒</div>
+    <p><b>Esta etapa ainda está trancada.</b></p>
+    <p id="lock-txt">Para abrir o Resumo, envie o Quiz.</p>
+    <a href="index.html">Voltar ao início</a>
+  </div>
+</div>
+
+<script>
+/* ====== TRILHA COM CADEADOS (módulo comum do kit) ====== */
+var KIT='tambor_da_marcha';
+var TRILHA=[
+ {id:'leitura', chave:KIT+'_leitura_v1', nome:'Leitura Guiada', arquivo:'leitura-guiada.html', emoji:'📖'},
+ {id:'quiz', chave:KIT+'_quiz_v1', nome:'Quiz', arquivo:'quiz.html', emoji:'🎯'},
+ {id:'resumo', chave:KIT+'_resumo_v1', nome:'Resumo', arquivo:'resumo.html', emoji:'🗺️'},
+ {id:'simulado', chave:KIT+'_simulado_v1', nome:'Simulado', arquivo:'simulado.html', emoji:'📝'}
+];
+function lerJSON(k){ try{ var s=localStorage.getItem(k); return s?JSON.parse(s):null; }catch(e){ return null; } }
+function trilhaLiberada(){ var t=lerJSON(KIT+'_trilha_v1'); return !!(t&&t.liberadoPelosPais); }
+function etapaConcluida(id){ var e=TRILHA.filter(function(t){return t.id===id;})[0]; var d=lerJSON(e.chave); return !!(d&&d.concluido); }
+function podeAbrir(id){ var idx=TRILHA.map(function(t){return t.id;}).indexOf(id); if(idx<=0||trilhaLiberada()) return true; return etapaConcluida(TRILHA[idx-1].id); }
+function marcarNav(){
+  var links=document.querySelectorAll('#nav a[data-etapa]');
+  for(var i=0;i<links.length;i++){ var id=links[i].getAttribute('data-etapa'); if(!podeAbrir(id)){ links[i].classList.add('lock'); links[i].textContent='🔒 '+links[i].textContent.replace('🔒 ',''); links[i].setAttribute('title','Ainda trancado'); } else { links[i].classList.remove('lock'); links[i].textContent=links[i].textContent.replace('🔒 ',''); } }
+}
+function checarTrava(){
+  if(podeAbrir('resumo')) return true;
+  var L=lerJSON(KIT+'_leitura_v1');
+  document.getElementById('lock-txt').textContent=(L&&L.concluido)?'Para abrir o Resumo, envie o Quiz.':'Para abrir o Resumo, conclua a Leitura Guiada e envie o Quiz.';
+  document.getElementById('lock').classList.add('show');
+  document.querySelector('.wrap').style.filter='blur(6px)';
+  return false;
+}
+
+/* ====== ESTADO DO RESUMO ====== */
+var CHAVE=KIT+'_resumo_v1'; var mem={}; var estado=carregar();
+function carregar(){ try{ var s=localStorage.getItem(CHAVE); if(s) return JSON.parse(s);}catch(e){ if(mem[CHAVE]) return JSON.parse(mem[CHAVE]); } return {rolagemMax:0}; }
+function salvar(){ var s=JSON.stringify(estado); try{ localStorage.setItem(CHAVE,s);}catch(e){ mem[CHAVE]=s; } document.getElementById('salvo').textContent='📏 Rolagem máxima: '+Math.round(estado.rolagemMax||0)+'%'; }
+function medirRolagem(){
+  var h=document.documentElement; var total=h.scrollHeight-h.clientHeight; var pct= total<=0?100:Math.min(100,(window.scrollY||h.scrollTop)/total*100);
+  if(pct>(estado.rolagemMax||0)){ estado.rolagemMax=pct; salvar(); }
+  var b=document.getElementById('btn-li'); if(!estado.concluido && (estado.rolagemMax||0)>=90){ b.disabled=false; }
+}
+function confirmarLeitura(){ if(estado.concluido) return; estado.concluido=true; estado.concluidoEm=new Date().toISOString(); salvar(); atualizarFim(); }
+function atualizarFim(){
+  var h3=document.getElementById('fim-h3'), txt=document.getElementById('fim-txt'), b=document.getElementById('btn-li'), a=document.getElementById('btn-prox');
+  if(estado.concluido||trilhaLiberada()){ h3.textContent='✅ Resumo lido — Simulado destravado!'; txt.textContent=estado.concluido?'Agora encare o Toque Final (Simulado), como se fosse a prova.':'Trilha liberada pelos pais.'; if(estado.concluido){ b.disabled=true; b.textContent='✅ Resumo concluído'; } a.classList.remove('off'); }
+  else { h3.textContent='🔒 Próxima etapa: Simulado'; txt.textContent=(estado.rolagemMax||0)>=90?'Confirme a leitura para destravar o Simulado.':'Role até o fim da página para habilitar o botão (rolagem: '+Math.round(estado.rolagemMax||0)+'%).'; a.classList.add('off'); }
+  marcarNav();
+}
+function exportar(){ var blob=new Blob([JSON.stringify(estado,null,2)],{type:'application/json'}); var a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='resumo_tambor-da-marcha.json'; a.click(); }
+
+if(checarTrava()){ salvar(); atualizarFim(); window.addEventListener('scroll',function(){ medirRolagem(); atualizarFim(); }); setTimeout(function(){ medirRolagem(); atualizarFim(); },300); } else { marcarNav(); }
+</script>
+</body>
+</html>
